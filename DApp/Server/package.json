@@ -1,0 +1,26 @@
+{
+  "name": "crypto-cards-api",
+  "version": "1.0.0",
+  "description": "Crypto cards!",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest --runInBand"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/littlezigy/crypto-cards.git"
+  },
+  "keywords": [
+    "dapp",
+    "chainlink",
+    "gaming",
+    "cryptocurrency",
+    "defi"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/littlezigy/crypto-cards/issues"
+  },
+  "homepage": "https://github.com/littlezigy/crypto-cards#readme"
+}
