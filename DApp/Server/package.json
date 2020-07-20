@@ -4,7 +4,8 @@
   "description": "Crypto cards!",
   "main": "app.js",
   "scripts": {
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "dev": "NODE_ENV=development nodemon ./bin/www.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/littlezigy/crypto-cards/issues"
   },
-  "homepage": "https://github.com/littlezigy/crypto-cards#readme"
+  "homepage": "https://github.com/littlezigy/crypto-cards#readme",
+  "dependencies": {
+    "nodemon": "^2.0.4",
+    "ws": "^7.3.1"
+  }
 }
