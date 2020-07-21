@@ -58,6 +58,4 @@ lowerhand.click(function(card){
 
 upperhand.click(function(card){
   console.log(card);
-  card.faceUp = true;
-  this.render();
 });
