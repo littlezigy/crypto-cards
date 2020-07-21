@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Cards</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src = './js/web3.js'></script>
     <link rel="stylesheet" href="css/example.css">
+    <link rel="stylesheet" href="css/main.css">
     
 </head>
 <body>
@@ -15,6 +17,83 @@
     <div id="card-table">
         <button id="deal">DEAL</button>
     </div>
+
+    <div id = 'player1'>
+        <p>Player 1</p>
+        <span class = 'balance'></span>
+    </div>
+
+    <div id = 'player2'>
+        <p>Player 2</p>
+        <span class = 'balance'></span>
+    </div>
+
+    <div id = 'accounts'>
+        <p class = 'text-center'>Available Accounts</p>
+    </div>
+
+    <div></div>
+
+    <script>
+        var web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+
+        if(typeof web3 !== undefined) {
+            console.log("Web3 Detected!\n" + window.web3.currentProvider.constructor.name);
+
+            let helloContract = new web3.eth.Contract([
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "data",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "seta",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "constructor"
+                },
+                {
+                    "inputs": [],
+                    "name": "geta",
+                    "outputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                }
+            ], '0xd298eFF51cd039ED010A6ec4Ee2C3C0ECC36dF3E');
+
+            (() => {
+                let accountsDiv = document.getElementById('accounts');
+                return  web3.eth.getAccounts()
+                .then(res => {
+                    res.forEach(account => {
+                        accountsDiv.innerHTML += `<p>${ account }</p>`;
+
+                    });
+                    return helloContract.methods.geta().call()
+                        .then(boon => {
+                    console.log('BOON', boon);
+                        });
+                });
+            })();
+        }
+
+        document.querySelector('div#player1 > span.balance');
+        document.querySelector('div#player2 > span.balance');
+        
+    </script>
     <script src="js/deckType.js"></script>
     <script src="js/cards.js"></script>
     <script src="js/example.js"></script>
