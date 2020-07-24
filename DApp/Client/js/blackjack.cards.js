@@ -81,15 +81,20 @@ var cards = (function() {
 
   function shuffle(deck) {
     //Fisher yates shuffle
+      console.log('DECK LENGTH', deck.length);
+    console.log('DECKK start', deck);
     var i = deck.length;
     if (i == 0) return;
     while (--i) {
+      // Replace next line with randomizer function
       var j = Math.floor(Math.random() * (i + 1));
+
       var tempi = deck[i];
       var tempj = deck[j];
       deck[i] = tempj;
       deck[j] = tempi;
     }
+    console.log('DECKK end', deck);
   }
 
   function Card(suit, rank, table) {
