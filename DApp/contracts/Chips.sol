@@ -1,6 +1,7 @@
 pragma solidity ^0.5.0;
+import './PriceChecker.sol';
 
-contract FancyToken is ERC20 {
+contract Chip is ERC20 {
     string public name = 'Fancy Token';
     string public symbol = 'FAN';
     unit256 public totalSupply;
@@ -18,7 +19,7 @@ contract FancyToken is ERC20 {
     );
 
     mapping(address => uint256) public balanceOf;
-    mapping(address => mapping(address=>256)) public allowance;
+    mapping(address => mapping(address=>uint256)) public allowance;
 
     function FancyToken(uint256 _initialSupply) public {
         balanceOf[msg.sender] = _initialSupply;
