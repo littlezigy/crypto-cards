@@ -71,4 +71,68 @@ Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
     function getBlackjackPlayer() public view returns (BlackJackPlayer memory) {
         return blackjack;
     }
+
+    function shuffleDeck() public {
+        //hardcoding values for now
+        //A = 1/11 2......10 J,Q,K = 10
+        //Hearts
+        deck.push(1);
+        deck.push(2);
+        deck.push(3);
+        deck.push(4);
+        deck.push(5);
+        deck.push(6);
+        deck.push(7);
+        deck.push(8);
+        deck.push(9);
+        deck.push(10); // Either a King, Queen, or Jack
+        deck.push(10); // Either a King, Queen, or Jack
+        deck.push(10); // Either a King, Queen, or Jack
+
+        //Diamonds
+        deck.push(1);
+        deck.push(2);
+        deck.push(3);
+        deck.push(4);
+        deck.push(5);
+        deck.push(6);
+        deck.push(7);
+        deck.push(8);
+        deck.push(9);
+        deck.push(10); // Either a King, Queen, or Jack
+        deck.push(10); // Either a King, Queen, or Jack
+        deck.push(10); // Either a King, Queen, or Jack
+
+        //Spades
+        deck.push(1);
+        deck.push(2);
+        deck.push(3);
+        deck.push(4);
+        deck.push(5);
+        deck.push(6);
+        deck.push(7);
+        deck.push(8);
+        deck.push(9);
+        deck.push(10); // Either a King, Queen, or Jack
+        deck.push(10); // Either a King, Queen, or Jack
+        deck.push(10); // Either a King, Queen, or Jack
+
+        //Clubs
+        deck.push(1);
+        deck.push(2);
+        deck.push(3);
+        deck.push(4);
+        deck.push(5);
+        deck.push(6);
+        deck.push(7);
+        deck.push(8);
+        deck.push(9);
+        deck.push(10); // Either a King, Queen, or Jack
+        deck.push(10); // Either a King, Queen, or Jack
+        deck.push(10); // Either a King, Queen, or Jack
+    }
+
+    function getDeck() public view returns (uint256[] memory d) {
+        return deck;
+    }
 }
