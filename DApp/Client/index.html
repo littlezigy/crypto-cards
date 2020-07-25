@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Cards</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
-    <script src = './js/web3.js'></script>
+    <script src = 'js/web3.js'></script>
     <link rel="stylesheet" href="css/example.css">
     <link rel="stylesheet" href="css/main.css">
     
@@ -40,54 +40,67 @@
         if(typeof web3 !== undefined) {
             console.log("Web3 Detected!\n" + window.web3.currentProvider.constructor.name);
 
-            let helloContract = new web3.eth.Contract([
-                {
-                    "inputs": [
-                        {
-                            "internalType": "uint256",
-                            "name": "data",
-                            "type": "uint256"
-                        }
-                    ],
-                    "name": "seta",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "inputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "constructor"
-                },
-                {
-                    "inputs": [],
-                    "name": "geta",
-                    "outputs": [
-                        {
-                            "internalType": "uint256",
-                            "name": "",
-                            "type": "uint256"
-                        }
-                    ],
-                    "stateMutability": "view",
-                    "type": "function"
-                }
-            ], '0xd298eFF51cd039ED010A6ec4Ee2C3C0ECC36dF3E');
-
             (() => {
-                let accountsDiv = document.getElementById('accounts');
-                return  web3.eth.getAccounts()
+                return window.ethereum.enable()
                 .then(res => {
-                    res.forEach(account => {
-                        accountsDiv.innerHTML += `<p>${ account }</p>`;
+                        console.log('enabled wallet', res);
 
-                    });
-                    return helloContract.methods.geta().call()
-                        .then(boon => {
-                    console.log('BOON', boon);
+                    // App.web3Provider = web3.currentProvider;
+                    web3 = new Web3(web3.currentProvider);
+
+                    let helloContract = new web3.eth.Contract([
+                        {
+                            "inputs": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "data",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "name": "seta",
+                            "outputs": [],
+                            "stateMutability": "nonpayable",
+                            "type": "function"
+                        },
+                        {
+                            "inputs": [],
+                            "stateMutability": "nonpayable",
+                            "type": "constructor"
+                        },
+                        {
+                            "inputs": [],
+                            "name": "geta",
+                            "outputs": [
+                                {
+                                    "internalType": "uint256",
+                                    "name": "",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "stateMutability": "view",
+                            "type": "function"
+                        }
+                    ], '0xd298eFF51cd039ED010A6ec4Ee2C3C0ECC36dF3E');
+
+                    (() => {
+                        let accountsDiv = document.getElementById('accounts');
+                        return  web3.eth.getAccounts()
+                        .then(res => {
+                            res.forEach(account => {
+                                accountsDiv.innerHTML += `<p>${ account }</p>`;
+
+                            });
+                            return helloContract.methods.geta().call()
+                                .then(boon => {
+                            console.log('BOON', boon);
+                                });
                         });
+                    })();
                 });
             })();
+        } else {
+            App.web3Provider = new web3.providers.HttpProvider('http://127.0.0.1:7545');
+            web3 = new Web3(App.web3Provider);
         }
 
         document.querySelector('div#player1 > span.balance');

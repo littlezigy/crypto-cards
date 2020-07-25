@@ -3,10 +3,16 @@ const http = require('http');
 const server = http.createServer();
 const WebSocket = require('ws');
 
-const app = require('../app');
+const { app } = require('../app');
 
+const port = 3080;
+
+// Mount sockets
 const wsChat = new WebSocket.Server({ noServer: true });
 const ws1 = new WebSocket.Server({ noServer: true });
+
+// Mount http server
+server.on('request', app);
 
 ws1.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
@@ -46,4 +52,5 @@ server.on('upgrade', (request, socket, head) => {
     }
 });
 
-server.listen(3080, 'localhost');
+app.set('port', port);
+server.listen(port, 'localhost');
