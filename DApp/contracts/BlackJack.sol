@@ -5,74 +5,75 @@ pragma solidity >=0.4.22 <0.7.0;
  * @dev Crypto Cards
  */
 contract Blackjack {
-/*
-You4:26 PM
-{shortName: "h6", suit: "h", rank: 6, name: "H6", faceUp: false, …}
-You4:30 PM
-Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
-*/
-string private playername;
-uint private rank;//card number
-string private suit;//card suites D,C,H,S
-uint private bet;
-uint public pot;//the pot for all players
+    /*
+    You4:26 PM
+    {shortName: "h6", suit: "h", rank: 6, name: "H6", faceUp: false, …}
+    You4:30 PM
+    Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
+    */
 
-constructor() public {
-    
-}
+    string private playername;
+    uint private rank;//card number
+    string private suit;//card suites D,C,H,S
+    uint private bet;
+    uint public pot;//the pot for all players
 
-Setters
-function setPlayerName(string memory p) public{
-   playername = p; 
-}
+    constructor() public {
+        // Start game
+    }
 
-function setRank(uint r) public{
-    rank = r;
-}
+    // Setters
+    function setPlayerName(string memory p) public{
+       playername = p; 
+    }
 
-function setSuit(string memory s) public{
-    suit = s;
-}
+    function setRank(uint r) public{
+        rank = r;
+    }
 
-function setBet(uint b) public payable{
-    bet = b;
-}
+    function setSuit(string memory s) public{
+        suit = s;
+    }
 
-function setPot(uint p ) public {
-    pot = p;
-}
+    function setBet(uint b) public payable{
+        bet = b;
+    }
 
-//Getters
-function getPlayerName() public view returns(string memory){
-    return playername;
-}
+    function setPot(uint p ) public {
+        pot = p;
+    }
 
-function getRank() public view returns(uint){
-    return rank;
-}
+    //Getters
+    function getPlayerName() public view returns(string memory){
+        return playername;
+    }
 
-function getSuit() public view returns(string memory){
-    return suit;
-}
+    function getRank() public view returns(uint){
+        return rank;
+    }
 
-function getBet() public view returns(uint){
-    return bet;
-}
+    function getSuit() public view returns(string memory){
+        return suit;
+    }
 
-//No need to get pot since its public
+    function getBet() public view returns(uint){
+        return bet;
+    }
 
-function initGame(){
-    //Create new deck and shuffle using vrf 
-    //gives an array of cards [{suit: "h", rank: 6, name: "H6"}, [{suit: "h", rank: 6, name: "H6"}] ===> To cardsjs as Card.deal({suit: "h", rank: 6, name: "H6"})
-}
-//function turn()
-function playerTurn(){
-    //prints out CARD:{CardName: "h6", suit: "h", rank: 6, name: "H6"}
-}
+    //No need to get pot since its public
 
-function hit(){
-    //Dealer card to a player
-}
+    function initGame() public {
+        //Create new deck and shuffle using vrf 
+        //gives an array of cards [{suit: "h", rank: 6, name: "H6"}, [{suit: "h", rank: 6, name: "H6"}] ===> To cardsjs as Card.deal({suit: "h", rank: 6, name: "H6"})
+    }
+    //function turn()
+    function playerTurn() public{
+        //prints out CARD:{CardName: "h6", suit: "h", rank: 6, name: "H6"}
+    }
+
+    function hit() public {
+        //Dealer card to a player
+    }
 
 
 
