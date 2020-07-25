@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/littlezigy/crypto-cards#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "nodemon": "^2.0.4",
     "ws": "^7.3.1"
   }
