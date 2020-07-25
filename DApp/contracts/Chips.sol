@@ -1,9 +1,9 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.0;
 import './PriceChecker.sol';
 
-contract Chip is ERC20 {
-    string public name = 'Fancy Token';
-    string public symbol = 'FAN';
+contract Chip {
+    string public name = 'Crypto-Cards Chip';
+    string public symbol = 'CCC';
     unit256 public totalSupply;
 
     event Transfer(
@@ -21,7 +21,7 @@ contract Chip is ERC20 {
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address=>uint256)) public allowance;
 
-    function FancyToken(uint256 _initialSupply) public {
+    function cryptoCardsChip(uint256 _initialSupply) public {
         balanceOf[msg.sender] = _initialSupply;
         totalSupply = _initialSupply;
     }

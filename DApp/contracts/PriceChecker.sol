@@ -1,5 +1,6 @@
 pragma solidity ^0.6.7;
-import "https://github.com/smartcontractkit/chainlink/evm-contracts/src/v0.6/interfaces/AggregatorInterface.sol";
+// import "https://github.com/smartcontractkit/chainlink/evm-contracts/src/v0.6/interfaces/AggregatorInterface.sol";
+import "@chainlink/contracts/src/v0.6/interfaces/AggregatorInterface.sol";
 
 contract Prices{
     AggregatorInterface internal priceFeed;

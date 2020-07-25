@@ -4,6 +4,7 @@
   "description": "Crypto cards!",
   "main": "app.js",
   "scripts": {
+    "compile": "npx truffle compile",
     "test": "jest --runInBand",
     "dev": "NODE_ENV=development nodemon ./Server/bin/www.js"
   },

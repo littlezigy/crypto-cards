@@ -1,6 +1,8 @@
-pragma solidity 0.6.6;
+pragma solidity ^0.6.6;
 
-import "https://raw.githubusercontent.com/smartcontractkit/chainlink/7a4e19a8ff07db1be0b397465d38d175bc0bb5b5/evm-contracts/src/v0.6/VRFConsumerBase.sol";
+// import "https://raw.githubusercontent.com/smartcontractkit/chainlink/7a4e19a8ff07db1be0b397465d38d175bc0bb5b5/evm-contracts/src/v0.6/VRFConsumerBase.sol";
+// import "./VRFConsumerBase.sol";
+import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 
 contract VRFTestnetD20 is VRFConsumerBase {
 

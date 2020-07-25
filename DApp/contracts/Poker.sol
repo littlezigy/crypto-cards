@@ -1,5 +1,4 @@
-pragma solidity ^0.5.0;
-import "@chainlink/contracts/src/v0.6/ChainlinkClient.sol";
+pragma solidity ^0.6.0;
 
 contract Poker {
 
