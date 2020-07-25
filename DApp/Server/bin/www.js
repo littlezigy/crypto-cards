@@ -52,5 +52,8 @@ server.on('upgrade', (request, socket, head) => {
     }
 });
 
+console.log('APP IS RUNNING ON PORT', port);
+
 app.set('port', port);
 server.listen(port, 'localhost');
+

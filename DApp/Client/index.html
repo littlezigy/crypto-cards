@@ -35,15 +35,16 @@
     <div></div>
 
     <script>
-        var web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+        let web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
 
         if(typeof web3 !== undefined) {
             console.log("Web3 Detected!\n" + window.web3.currentProvider.constructor.name);
+            web3 = new Web3(web3.currentProvider);
 
             (() => {
                 return window.ethereum.enable()
                 .then(res => {
-                        console.log('enabled wallet', res);
+                    console.log('enabled wallet', res);
 
                     // App.web3Provider = web3.currentProvider;
                     web3 = new Web3(web3.currentProvider);
@@ -91,9 +92,9 @@
 
                             });
                             return helloContract.methods.geta().call()
-                                .then(boon => {
-                            console.log('BOON', boon);
-                                });
+                            .then(boon => {
+                                console.log('BOON', boon);
+                            });
                         });
                     })();
                 });
