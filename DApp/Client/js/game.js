@@ -49,19 +49,15 @@ deck.click(function (card) {
 
 //hit player1
 $('#hit1').click(function (card) {
-
 	lowerhand.addCard(deck.topCard());
 	lowerhand.render();
-
 	console.log(card);
 });
 
 //hit player2
 $('#hit2').click(function (card) {
-
 	upperhand.addCard(deck.topCard());
 	upperhand.render();
-
 	console.log(card);
 });
 

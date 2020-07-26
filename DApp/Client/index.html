@@ -20,34 +20,42 @@
     <div id="card-table" class="hexagon">
         <button id="deal">DEAL</button>
     </div>
-<div id="players">
-    <div id='player1'>
-        <button id="hit1">HIT</button>
-        <button id="stay1">STAY</button>
-        <p>Player 1</p>
-        <span >Name:</span>
-        <span id='name' class="glow"></span>
-        <span >Bet:</span>
-        <span id='bet' class="glow"></span>
-        <p>Hand:</p>
-        <span id="hand" class="glow"></span>
-    </div>
+    <div id="players">
+        <div id='player1'>
+            <button id="hit1">HIT</button>
+            <button id="stay1">STAY</button>
+            <div>
+                <button id="bet1">BET</button>
+                <input type="text" value="">
+            </div>
+            <p>Player 1</p>
+            <span>Name:</span>
+            <span id='name' class="glow"></span>
+            <span>Bet:</span>
+            <span id='bet' class="glow"></span>
+            <p>Hand:</p>
+            <span id="hand" class="glow"></span>
+        </div>
 
-    <div id='player2'>
-        <button id="hit2">HIT</button>
-        <button id="stay2">STAY</button>
-        <p>Player 2</p>
-        <span >Name:</span>
-        <span class="glow">User2</span>
-        <span >Bet:</span>
-        <span class="glow">12</span>
-        <p>Hand:</p>
-        <span class="glow"></span>
+        <div id='player2'>
+            <button id="hit2">HIT</button>
+            <button id="stay2">STAY</button>
+            <div>
+                <button id="bet2">BET</button>
+                <input type="text" value="">
+            </div>
+            <p>Player 2</p>
+            <span>Name:</span>
+            <span class="glow">User2</span>
+            <span>Bet:</span>
+            <span class="glow">12</span>
+            <p>Hand:</p>
+            <span class="glow"></span>
 
+        </div>
     </div>
-</div>
     <div id='accounts'>
-        <p class='text-center'>Available Accounts</p>
+        <p class='text-center'>Chat</p>
     </div>
 
     <div></div>
@@ -57,7 +65,7 @@
 
         if (typeof web3 !== undefined) {
             console.log("Web3 Detected!\n" + window.web3.currentProvider.constructor.name);
-console.log('lets play blackjack')
+            console.log('lets play blackjack')
             let BlackJackContract = new web3.eth.Contract([
                 {
                     "inputs": [
