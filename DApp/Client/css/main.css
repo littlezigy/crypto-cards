@@ -5,3 +5,11 @@
 .glow{
   color: blueviolet;
 }
+
+#players{
+  display: inline-flex;
+}
+
+#player1{
+  padding-right: 200px;
+}
