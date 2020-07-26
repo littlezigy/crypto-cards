@@ -95,7 +95,7 @@ var cards = (function() {
   function Card(suit, rank, table) {
     this.init(suit, rank, table);
   }
-
+// lowerhand.addCard({faceUp: true,name: "S8",rank: 8,shortName: "s8",suit: "s",targetLeft: 208,targetTop: 145});
   Card.prototype = {
     init: function(suit, rank, table) {
       this.shortName = suit + rank;
