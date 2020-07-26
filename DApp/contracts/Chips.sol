@@ -4,7 +4,7 @@ import './PriceChecker.sol';
 contract Chip {
     string public name = 'Crypto-Cards Chip';
     string public symbol = 'CCC';
-    unit256 public totalSupply;
+    uint256 public totalSupply;
 
     event Transfer(
         address indexed _from,
@@ -32,7 +32,7 @@ contract Chip {
         balanceOf[msg.sender] -= _value;
         balanceOf[_to] += _value;
 
-        Transfer(msg.sender, _to, _value);
+        emit Transfer(msg.sender, _to, _value);
 
         return true;
     }
@@ -40,13 +40,13 @@ contract Chip {
     function approve(address _spender, uint256 _value) public returns (bool success) {
         allowance[msg.sender][_spender] = _value;
 
-        Approval(msg.sender, _spender, _value);
+        emit Approval(msg.sender, _spender, _value);
         return true;
     }
 
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
-        require(_value <= balanceOf[_from]);
-        require(_value <= allowance[_from][msg.sender]);
+        require(balanceOf[_from] >= _value, "You can't transfer more CCC than you have. Try again with a smaller value");
+        require(allowance[_from][msg.sender] >= _value, 'Transfer value is greater than senders allowance');
 
         balanceOf[_from] -= _value;
         balanceOf[_to] += _value;
