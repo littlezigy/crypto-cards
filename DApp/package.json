@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "npx truffle compile",
     "test": "jest --runInBand",
-    "dev": "NODE_ENV=development nodemon ./Server/bin/www.js"
+    "dev": "nodemon ./Server/bin/www.js"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,9 @@
   "dependencies": {
     "@chainlink/contracts": "0.0.8",
     "express": "^4.17.1",
-    "nodemon": "^2.0.4",
     "ws": "^7.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
