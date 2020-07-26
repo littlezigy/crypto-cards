@@ -6,11 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Cards</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
-<<<<<<< HEAD
     <script src='./js/web3.js'></script>
-=======
-    <script src = 'js/web3.js'></script>
->>>>>>> 4b6e96d348d7cec62c4b2a6b75060c3dc8e7f7ab
     <link rel="stylesheet" href="css/example.css">
     <link rel="stylesheet" href="css/main.css">
 
@@ -44,15 +40,10 @@
     <div></div>
 
     <script>
-<<<<<<< HEAD
         var web3 = new Web3("http://localhost:7545");
-=======
-        let web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
->>>>>>> 4b6e96d348d7cec62c4b2a6b75060c3dc8e7f7ab
 
         if (typeof web3 !== undefined) {
             console.log("Web3 Detected!\n" + window.web3.currentProvider.constructor.name);
-<<<<<<< HEAD
 console.log('lets play blackjack')
             let BlackJackContract = new web3.eth.Contract([
                 {
@@ -205,37 +196,6 @@ console.log('lets play blackjack')
                     "inputs": [],
                     "name": "getRank",
                     "outputs": [
-=======
-            web3 = new Web3(web3.currentProvider);
-
-            (() => {
-                return window.ethereum.enable()
-                .then(res => {
-                    console.log('enabled wallet', res);
-
-                    // App.web3Provider = web3.currentProvider;
-                    web3 = new Web3(web3.currentProvider);
-
-                    let helloContract = new web3.eth.Contract([
-                        {
-                            "inputs": [
-                                {
-                                    "internalType": "uint256",
-                                    "name": "data",
-                                    "type": "uint256"
-                                }
-                            ],
-                            "name": "seta",
-                            "outputs": [],
-                            "stateMutability": "nonpayable",
-                            "type": "function"
-                        },
-                        {
-                            "inputs": [],
-                            "stateMutability": "nonpayable",
-                            "type": "constructor"
-                        },
->>>>>>> 4b6e96d348d7cec62c4b2a6b75060c3dc8e7f7ab
                         {
                             "inputs": [],
                             "name": "geta",
@@ -249,7 +209,6 @@ console.log('lets play blackjack')
                             "stateMutability": "view",
                             "type": "function"
                         }
-<<<<<<< HEAD
                     ],
                     "stateMutability": "view",
                     "type": "function"
@@ -287,25 +246,6 @@ console.log('lets play blackjack')
                         betDiv.innerHTML += res;
 
                     })
-=======
-                    ], '0xd298eFF51cd039ED010A6ec4Ee2C3C0ECC36dF3E');
-
-                    (() => {
-                        let accountsDiv = document.getElementById('accounts');
-                        return  web3.eth.getAccounts()
-                        .then(res => {
-                            res.forEach(account => {
-                                accountsDiv.innerHTML += `<p>${ account }</p>`;
-
-                            });
-                            return helloContract.methods.geta().call()
-                            .then(boon => {
-                                console.log('BOON', boon);
-                            });
-                        });
-                    })();
-                });
->>>>>>> 4b6e96d348d7cec62c4b2a6b75060c3dc8e7f7ab
             })();
         } else {
             App.web3Provider = new web3.providers.HttpProvider('http://127.0.0.1:7545');
