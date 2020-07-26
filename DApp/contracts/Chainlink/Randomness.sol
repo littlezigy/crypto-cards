@@ -54,8 +54,10 @@ contract VRFTestnetD20 is VRFConsumerBase {
      * @dev This is where you do something with randomness!
      * @dev The VRF Coordinator will only send this function verified responses.
      */
-    function fulfillRandomness(bytes32 requestId, uint256 randomness) external override onlyVRFCoordinator {
-        uint256 d20Result = randomness.mod(20).add(1); // Simplified example
+    function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override onlyVRFCoordinator {
+    // function fulfillRandomness(bytes32 requestId, uint256 randomness) external {
+//         uint256 d20Result = randomness.mod(20).add(1); // Simplified example
+        uint256 d20Result = randomness.mod(52).add(1); // Simplified example
         d20Results.push(d20Result);
     }
     
