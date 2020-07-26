@@ -13,11 +13,11 @@ deck.addCards(cards.all);
 deck.render({immediate:true});
 
 //Now lets create a couple of hands, one face down, one face up.
-upperhand = new cards.Hand({faceUp:false, y:60});
-lowerhand = new cards.Hand({faceUp:true,  y:340});
+upperhand = new cards.Hand({faceUp:true, x:0, y:340});//player2
+lowerhand = new cards.Hand({faceUp:true, x:80, y:340});//player1
 
 //Lets add a discard pile
-discardPile = new cards.Deck({faceUp:true});
+discardPile = new cards.Hand({faceUp:true});
 discardPile.x += 50;
 
 
@@ -26,7 +26,7 @@ $('#deal').click(function() {
 	//Deck has a built in method to deal to hands.
 	$('#deal').hide();
 	// deck.deal(1, [upperhand, lowerhand], 50, function() {
-	deck.deal(1, [upperhand, lowerhand], 50, function() {
+	deck.deal(1, [upperhand, lowerhand, discardPile], 50, function() {
 		//This is a callback function, called when the dealing
 		//is done.
 		discardPile.addCard(deck.topCard());
@@ -45,6 +45,24 @@ deck.click(function(card){
 	console.log(card);
 });
 
+//hit player1
+$('#hit1').click(function(card) {
+
+		lowerhand.addCard(deck.topCard());
+		lowerhand.render();
+
+	console.log(card);
+});
+
+//hit player2
+$('#hit2').click(function(card) {
+
+	upperhand.addCard(deck.topCard());
+	upperhand.render();
+
+console.log(card);
+});
+
 //Finally, when you click a card in your hand, if it's
 //the same suit or rank as the top card of the discard pile
 //then it's added to it
@@ -60,3 +78,7 @@ lowerhand.click(function(card){
 upperhand.click(function(card){
   console.log(card);
 });
+
+lowerhand.click(function(card){
+	console.log(card);
+  });
