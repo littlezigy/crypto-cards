@@ -1,67 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Cards</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
-    <script src = './js/web3.js'></script>
+    <script src='./js/web3.js'></script>
     <link rel="stylesheet" href="css/example.css">
     <link rel="stylesheet" href="css/main.css">
-    
+
 </head>
+
 <body>
 
-    <img class="preload" src="img/cards.png"/>
+    <img class="preload" src="img/cards.png" />
 
     <div id="card-table">
         <button id="deal">DEAL</button>
     </div>
 
-    <div id = 'player1'>
+    <div id='player1'>
         <p>Player 1</p>
-        <span class = 'balance'></span>
+        <span >Name:</span>
+        <span id='name' class="glow"></span>
+        <span >Bet:</span>
+        <span id='bet' class="glow"></span>
     </div>
 
-    <div id = 'player2'>
+    <div id='player2'>
         <p>Player 2</p>
-        <span class = 'balance'></span>
+        <span class='balance'></span>
     </div>
 
-    <div id = 'accounts'>
-        <p class = 'text-center'>Available Accounts</p>
+    <div id='accounts'>
+        <p class='text-center'>Available Accounts</p>
     </div>
 
     <div></div>
 
     <script>
-        var web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+        var web3 = new Web3("http://localhost:7545");
 
-        if(typeof web3 !== undefined) {
+        if (typeof web3 !== undefined) {
             console.log("Web3 Detected!\n" + window.web3.currentProvider.constructor.name);
-
-            let helloContract = new web3.eth.Contract([
+console.log('lets play blackjack')
+            let BlackJackContract = new web3.eth.Contract([
                 {
                     "inputs": [
                         {
                             "internalType": "uint256",
-                            "name": "data",
+                            "name": "b",
                             "type": "uint256"
                         }
                     ],
-                    "name": "seta",
+                    "name": "setBet",
+                    "outputs": [],
+                    "stateMutability": "payable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "string",
+                            "name": "p",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "setPlayerName",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "p",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "setPot",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "c",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "setRank",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "string",
+                            "name": "s",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "setSuit",
                     "outputs": [],
                     "stateMutability": "nonpayable",
                     "type": "function"
                 },
                 {
                     "inputs": [],
+                    "name": "shuffleDeck",
+                    "outputs": [],
                     "stateMutability": "nonpayable",
-                    "type": "constructor"
+                    "type": "function"
                 },
                 {
                     "inputs": [],
-                    "name": "geta",
+                    "name": "getBet",
                     "outputs": [
                         {
                             "internalType": "uint256",
@@ -71,31 +130,124 @@
                     ],
                     "stateMutability": "view",
                     "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "getBlackjackPlayer",
+                    "outputs": [
+                        {
+                            "components": [
+                                {
+                                    "internalType": "string",
+                                    "name": "playername",
+                                    "type": "string"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "card",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "internalType": "string",
+                                    "name": "suit",
+                                    "type": "string"
+                                },
+                                {
+                                    "internalType": "uint256",
+                                    "name": "bet",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "internalType": "struct Blackjack.BlackJackPlayer",
+                            "name": "",
+                            "type": "tuple"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "getDeck",
+                    "outputs": [
+                        {
+                            "internalType": "uint256[]",
+                            "name": "d",
+                            "type": "uint256[]"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "getPlayerName",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "getRank",
+                    "outputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "getSuit",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
                 }
-            ], '0xd298eFF51cd039ED010A6ec4Ee2C3C0ECC36dF3E');
+            ], '0x02645FFa8aeE06867E0A81e9D80800217e4c299e');
 
             (() => {
                 let accountsDiv = document.getElementById('accounts');
-                return  web3.eth.getAccounts()
-                .then(res => {
-                    res.forEach(account => {
-                        accountsDiv.innerHTML += `<p>${ account }</p>`;
-
-                    });
-                    return helloContract.methods.geta().call()
-                        .then(boon => {
-                    console.log('BOON', boon);
+                let nameDiv = document.getElementById('name');
+                let betDiv = document.getElementById('bet');
+                return web3.eth.getAccounts()
+                    .then(res => {
+                        res.forEach(account => {
+                            accountsDiv.innerHTML += `<p>${account}</p>`;
                         });
-                });
+                        return BlackJackContract.methods.getPlayerName().call();
+
+                    }).then(res => {
+                        nameDiv.innerHTML += res;
+                        return BlackJackContract.methods.getBet().call();
+                    }).then(res => {
+                        betDiv.innerHTML += res;
+
+                    })
             })();
         }
 
         document.querySelector('div#player1 > span.balance');
         document.querySelector('div#player2 > span.balance');
-        
+
     </script>
     <script src="js/deckType.js"></script>
     <script src="js/blackjack.cards.js"></script>
     <script src="js/example.js"></script>
 </body>
+
 </html>
