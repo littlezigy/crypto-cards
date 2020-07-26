@@ -1,5 +1,6 @@
 pragma solidity >=0.4.22 <0.7.0;
 pragma experimental ABIEncoderV2;
+import './Chainlink/Randomness.sol';
 
 /**
  * @title Blackjack
@@ -7,14 +8,17 @@ pragma experimental ABIEncoderV2;
  */
 contract Blackjack {
     /*
-You4:26 PM
-{shortName: "h6", suit: "h", rank: 6, name: "H6", faceUp: false, …}
-You4:30 PM
-Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
-*/
+    You4:26 PM
+    {shortName: "h6", suit: "h", rank: 6, name: "H6", faceUp: false, …}
+    You4:30 PM
+    Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
+
+    deck [1...52]
+
+    */
     address player1;
     address player2;
-    uint256[] deck = new uint256[](52);
+    uint256[] public deck = new uint256[](52);
     uint256 turns = 0;
     uint256 pot; //the pot for all players
     //player/game metadata
@@ -25,10 +29,6 @@ Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
         uint256 bet;
     }
     BlackJackPlayer blackjack;
-
-    // constructor() public {
-
-    // }
 
     //Setters
     function setPlayerName(string memory p) public {
@@ -76,6 +76,25 @@ Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
         //hardcoding values for now
         //A = 1/11 2......10 J,Q,K = 10
         //Hearts
+
+        // Fill deck with numbers 1 through 52
+        for (uint256 i = 0; i < 52; i++) {
+            deck[i] = i + 1;
+        }
+
+        // Fisher-Yates shuffle
+        for(uint256 i = 52; i > 0; i++) {
+            uint256 tempi = deck[i];
+            // Make random number using Chainlink VRF function
+            VRFTestnetD20 vrf = VRFTestnetD20();
+            await vrf.fulfillRandomness()
+            uint256 j = await vrf.latestRoll();
+
+            deck[i] = i;
+            deck[i] = deck[j];
+            deck[j] = tempi;
+        }
+        /*
         deck.push(1);
         deck.push(2);
         deck.push(3);
@@ -86,8 +105,9 @@ Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
         deck.push(8);
         deck.push(9);
         deck.push(10); // Either a King, Queen, or Jack
-        deck.push(10); // Either a King, Queen, or Jack
-        deck.push(10); // Either a King, Queen, or Jack
+        deck.push(11); // Either a King, Queen, or Jack
+        deck.push(12); // Either a King, Queen, or Jack
+        deck.push(13); // Either a King, Queen, or Jack
 
         //Diamonds
         deck.push(1);
@@ -100,8 +120,9 @@ Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
         deck.push(8);
         deck.push(9);
         deck.push(10); // Either a King, Queen, or Jack
-        deck.push(10); // Either a King, Queen, or Jack
-        deck.push(10); // Either a King, Queen, or Jack
+        deck.push(11); // Either a King, Queen, or Jack
+        deck.push(12); // Either a King, Queen, or Jack
+        deck.push(13); // Either a King, Queen, or Jack
 
         //Spades
         deck.push(1);
@@ -114,11 +135,12 @@ Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
         deck.push(8);
         deck.push(9);
         deck.push(10); // Either a King, Queen, or Jack
-        deck.push(10); // Either a King, Queen, or Jack
-        deck.push(10); // Either a King, Queen, or Jack
+        deck.push(11); // Either a King, Queen, or Jack
+        deck.push(12); // Either a King, Queen, or Jack
+        deck.push(13); // Either a King, Queen, or Jack
 
         //Clubs
-        deck.push(1);
+        deck.push(1); // Ace
         deck.push(2);
         deck.push(3);
         deck.push(4);
@@ -128,8 +150,10 @@ Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
         deck.push(8);
         deck.push(9);
         deck.push(10); // Either a King, Queen, or Jack
-        deck.push(10); // Either a King, Queen, or Jack
-        deck.push(10); // Either a King, Queen, or Jack
+        deck.push(11); // Either a King, Queen, or Jack
+        deck.push(12); // Either a King, Queen, or Jack
+        deck.push(13); // Either a King, Queen, or Jack
+        */
     }
 
     function getDeck() public view returns (uint256[] memory d) {
