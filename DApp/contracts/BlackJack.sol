@@ -8,12 +8,12 @@ import './Chainlink/Randomness.sol';
  */
 contract Blackjack {
     /*
-    You4:26 PM
-    {shortName: "h6", suit: "h", rank: 6, name: "H6", faceUp: false, …}
-    You4:30 PM
-    Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
+        You4:26 PM
+        {shortName: "h6", suit: "h", rank: 6, name: "H6", faceUp: false, …}
+        You4:30 PM
+        Blackjack Smartcontract will store: Player Name, Rank, Suit, Bet
 
-    deck [1...52]
+        deck [1...52]
 
     */
     address player1;
@@ -22,12 +22,20 @@ contract Blackjack {
     uint256 turns = 0;
     uint256 pot; //the pot for all players
     //player/game metadata
+
+    RandomNumberConsumer vrf;
+
+    constructor(address randomNumberConsumerAddress) public{
+        vrf =  RandomNumberConsumer(randomNumberConsumerAddress);
+    }
+
     struct BlackJackPlayer {
         string playername;
         uint256 card;
         string suit; //card suites D,C,H,S
         uint256 bet;
     }
+
     BlackJackPlayer blackjack;
 
     //Setters
@@ -72,88 +80,44 @@ contract Blackjack {
         return blackjack;
     }
 
-    function shuffleDeck() public {
-        //hardcoding values for now
-        //A = 1/11 2......10 J,Q,K = 10
-        //Hearts
+    // Events
 
+    event FillingDeck(
+        uint256 i
+    );
+
+    function shuffleDeck() public {
         // Fill deck with numbers 1 through 52
         for (uint256 i = 0; i < 52; i++) {
             deck[i] = i + 1;
         }
 
+        // Suits: clubs diamond heart spade
+
+        // 1 through 13 is clubs
+        // 14 through 26 is diamonds
+        // 27 through 39 is heart
+        // 40 through 52 is spades
+
+        // Will use mod function to get card suit and number
+
         // Fisher-Yates shuffle
-        for(uint256 i = 52; i > 0; i++) {
+        for(uint256 i = 51; i > 0; i--) {
             uint256 tempi = deck[i];
-            // Make random number using Chainlink VRF function
-            VRFTestnetD20 vrf = VRFTestnetD20();
-            await vrf.fulfillRandomness()
-            uint256 j = await vrf.latestRoll();
+            // Use Chainlink VRF function to make random number
+            vrf.getRandomNumber(566);
+            uint256 j = vrf.randomResult();
+
 
             deck[i] = i;
             deck[i] = deck[j];
             deck[j] = tempi;
+            // deck = [12, 3 ,52 ...];
+            // cards[12] = {shortname: 'c7', }
         }
-        /*
-        deck.push(1);
-        deck.push(2);
-        deck.push(3);
-        deck.push(4);
-        deck.push(5);
-        deck.push(6);
-        deck.push(7);
-        deck.push(8);
-        deck.push(9);
-        deck.push(10); // Either a King, Queen, or Jack
-        deck.push(11); // Either a King, Queen, or Jack
-        deck.push(12); // Either a King, Queen, or Jack
-        deck.push(13); // Either a King, Queen, or Jack
+    }
 
-        //Diamonds
-        deck.push(1);
-        deck.push(2);
-        deck.push(3);
-        deck.push(4);
-        deck.push(5);
-        deck.push(6);
-        deck.push(7);
-        deck.push(8);
-        deck.push(9);
-        deck.push(10); // Either a King, Queen, or Jack
-        deck.push(11); // Either a King, Queen, or Jack
-        deck.push(12); // Either a King, Queen, or Jack
-        deck.push(13); // Either a King, Queen, or Jack
-
-        //Spades
-        deck.push(1);
-        deck.push(2);
-        deck.push(3);
-        deck.push(4);
-        deck.push(5);
-        deck.push(6);
-        deck.push(7);
-        deck.push(8);
-        deck.push(9);
-        deck.push(10); // Either a King, Queen, or Jack
-        deck.push(11); // Either a King, Queen, or Jack
-        deck.push(12); // Either a King, Queen, or Jack
-        deck.push(13); // Either a King, Queen, or Jack
-
-        //Clubs
-        deck.push(1); // Ace
-        deck.push(2);
-        deck.push(3);
-        deck.push(4);
-        deck.push(5);
-        deck.push(6);
-        deck.push(7);
-        deck.push(8);
-        deck.push(9);
-        deck.push(10); // Either a King, Queen, or Jack
-        deck.push(11); // Either a King, Queen, or Jack
-        deck.push(12); // Either a King, Queen, or Jack
-        deck.push(13); // Either a King, Queen, or Jack
-        */
+    function calcPoints() public {
     }
 
     function getDeck() public view returns (uint256[] memory d) {
