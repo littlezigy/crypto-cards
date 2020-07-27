@@ -12,7 +12,7 @@
 
 </head>
 
-<body>
+<body style="padding-top: 0px;">
     <h2>Crypto Cards</h2>
 
     <img class="preload" src="img/cards.png" />
@@ -21,16 +21,20 @@
         <button id="deal">DEAL</button>
         <p style="color:white; margin-left: 16px;">POT: <span id="pot"></span></p>
         <p style="color:white; margin-left: 16px;">TIME: <span id="timer"></span></p>
+        <h2 id="dealerscore" style="color:white; margin-left: 16px; text-align: left;"></h2>
     </div>
     <div id="players">
         <div id='player1'>
+            <h2 id="score1" style="text-align:left;">Score</h2>
             <button id="hit1">HIT</button>
             <button id="stay1">STAY</button>
             <div>
                 <button id="bet1">BET</button>
                 <input type="text" value="">
             </div>
-            <p>Player 1</p>
+            <p style="
+            margin-bottom: 0px;
+        ">Player 1</p>
             <span>Name:</span>
             <span id='name' class="glow"></span>
             <span>Bet:</span>
@@ -40,13 +44,16 @@
         </div>
 
         <div id='player2'>
+            <h2 id="score2" style="text-align:left;">Score</h2>
             <button id="hit2">HIT</button>
             <button id="stay2">STAY</button>
             <div>
                 <button id="bet2">BET</button>
                 <input type="text" value="">
             </div>
-            <p>Player 2</p>
+            <p style="
+            margin-bottom: 0px;
+        ">Player 2</p>
             <span>Name:</span>
             <span class="glow">User2</span>
             <span>Bet:</span>
@@ -255,6 +262,7 @@
                 let v = 300;
                 let pot = document.getElementById('pot');
                 let timer = document.getElementById('timer');
+                let dealerScore = document.getElementById('dealerscore');
                 let accountsDiv = document.getElementById('accounts');
                 let nameDiv = document.getElementById('name');
                 let betDiv = document.getElementById('bet');
@@ -264,26 +272,40 @@
                 //pot.innerHTML -= 90;
 
                 //initialize and reset timer
-                let timeLeft = 30;
+                let timeLeft = 15;
                 let timerId = setInterval(t, 1000)
                 function t() {
+                    i = 0;
                     if (timeLeft == -1) {
                         clearTimeout(timerId);
                     } else {
                         timer.innerHTML = timeLeft;
                         timeLeft--;
                         if (timeLeft == 0) {
+
                             console.log('times up');
-                            lowerhand.addCard(deck.topCard());
-                            lowerhand.render();
-                            upperhand.addCard(deck.topCard());
-                            upperhand.render();
+                            // console.log(lowerhand[i].rank);
+                            // console.log(upperhand[i].rank);
+                            // console.log(dealerhand[i].rank);
+                            // lowerhand.addCard(deck.topCard());
+                            // lowerhand.render();
+                            // upperhand.addCard(deck.topCard());
+                            // upperhand.render();
                             dealerhand.addCard(deck.topCard());
+                            dealerScore.innerHTML = dealerhand[0].rank + dealerhand[1].rank + dealerhand[2].rank;
                             dealerhand.render();
-                            timeLeft = 30;
+                            alert('You lose');
+                            if (dealerhand.length <= 2) {
+                                timeLeft = 30;
+                                
+                                i++;
+                            }
+                            // timeLeft = 30;
                         }
                     }
                 }
+
+
                 return web3.eth.getAccounts()
                     .then(res => {
                         res.forEach(account => {

@@ -16,7 +16,7 @@ deck.render({ immediate: true });
 //Now lets create a couple of hands, one face down, one face up.
 upperhand = new cards.Hand({ faceUp: true, x: 0, y: 340 });//player2
 lowerhand = new cards.Hand({ faceUp: true, x: 80, y: 340 });//player1
-dealerhand = new cards.Hand({ faceUp: false });
+dealerhand = new cards.Hand({ faceUp: true });
 dealerhand.x += 50;
 
 //Lets add a discard pile
@@ -35,7 +35,9 @@ $('#deal').click(function () {
 		dealerhand.render();
 	});
 });
-
+let playerScore1 = document.getElementById('score1');
+let playerScore2 = document.getElementById('score2');
+let dealerScore = document.getElementById('dealerscore');
 
 //When you click on the top card of a deck, a card is added
 //to your hand
@@ -44,6 +46,7 @@ deck.click(function (card) {
 		dealerhand.addCard(deck.topCard());
 		dealerhand.render();
 	}
+	dealerScore.innerHTML = dealerhand[0].rank + dealerhand[1].rank + dealerhand[2].rank;
 	console.log(card);
 });
 
@@ -52,13 +55,18 @@ $('#hit1').click(function (card) {
 	lowerhand.addCard(deck.topCard());
 	lowerhand.render();
 	console.log(card);
+	playerScore1.innerHTML = lowerhand[0].rank + lowerhand[1].rank + lowerhand[2].rank;
+	console.log(lowerhand[2].rank);
+	console.log(card.rank);
 });
 
 //hit player2
 $('#hit2').click(function (card) {
 	upperhand.addCard(deck.topCard());
 	upperhand.render();
+	playerScore2.innerHTML = upperhand[0].rank + upperhand[1].rank + upperhand[2].rank;
 	console.log(card);
+	console.log(upperhand[0].rank + upperhand[1].rank);
 });
 
 //Finally, when you click a card in your hand, if it's
