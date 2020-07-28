@@ -21,6 +21,7 @@ contract Blackjack {
     uint256[] public deck = new uint256[](52);
     uint256 turns = 0;
     uint256 pot; //the pot for all players
+    // uint256 currentCardIndex = 0;
     //player/game metadata
 
     RandomNumberConsumer vrf;
@@ -86,35 +87,55 @@ contract Blackjack {
         uint256 i
     );
 
+    event RandomNum(
+        uint256 x
+    );
+
+    event DeckReady(
+        bool ready
+    );
+
+    function swapCardsInDeck() internal {
+        //uint256 i = 52;
+        uint256 i;
+        vrf.getRandomNumber(566);
+
+        while (vrf.randCount() < 52) {
+            uint256 j = vrf.randomResult();
+
+            if(vrf.randIndex() == true) {
+                // currentCardIndex = i;
+
+                uint256 tempi = deck[i];
+
+                deck[i] = deck[j];
+                deck[j] = tempi;
+
+                vrf.resetRandomIndex();
+
+                vrf.getRandomNumber(566);
+            }
+
+            if(vrf.randCount() == 51) {
+                // Last swap. Emit event
+                emit DeckReady(true);
+            }
+        }
+
+    }
+
     function shuffleDeck() public {
         // Fill deck with numbers 1 through 52
         for (uint256 i = 0; i < 52; i++) {
             deck[i] = i + 1;
         }
 
+        vrf.resetRandomIndex();
+        swapCardsInDeck();
+
         // Suits: clubs diamond heart spade
+        // Set randIndex = -1;
 
-        // 1 through 13 is clubs
-        // 14 through 26 is diamonds
-        // 27 through 39 is heart
-        // 40 through 52 is spades
-
-        // Will use mod function to get card suit and number
-
-        // Fisher-Yates shuffle
-        for(uint256 i = 51; i > 0; i--) {
-            uint256 tempi = deck[i];
-            // Use Chainlink VRF function to make random number
-            vrf.getRandomNumber(566);
-            uint256 j = vrf.randomResult();
-
-
-            deck[i] = i;
-            deck[i] = deck[j];
-            deck[j] = tempi;
-            // deck = [12, 3 ,52 ...];
-            // cards[12] = {shortname: 'c7', }
-        }
     }
 
     function calcPoints() public {
