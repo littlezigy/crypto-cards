@@ -32,9 +32,8 @@
                 <button id="bet1" onclick="betUpdate()">BET</button>
                 <input type="text" id="bet1value" value="">
             </div>
-            <p style="
-            margin-bottom: 0px;
-        ">Player 1</p>
+
+            <p style=" margin-bottom: 0px;">Player 1</p>
             <span>Name:</span>
             <span id='name' class="glow"></span>
             <span>Bet:</span>
@@ -51,9 +50,8 @@
                 <button id="bet2">BET</button>
                 <input type="text" id="bet2value" value="">
             </div>
-            <p style="
-            margin-bottom: 0px;
-        ">Player 2</p>
+
+            <p style="margin-bottom: 0px;">Player 2</p>
             <span>Name:</span>
             <span class="glow">User2</span>
             <span>Bet:</span>
@@ -69,288 +67,27 @@
 
     <div></div>
 
-    <script>
-        var web3 = new Web3("http://localhost:7545");
-        
-                let betDiv = document.getElementById('bet');
-                let betValue1 = document.getElementById('bet1value');
-        let betUpdate = function () {
-console.log(betValue1.value);
-            return BlackJackContract.methods.setBet(betValue1.value).send({from:"0x4f8e3a724d5CfbBE9e1152dFB5A3920ccA5e89e8"})
-                .then(res => {
-                    return BlackJackContract.methods.getBet().call()
-                })
-                .then(res => {
+    <script src="js/abis/chipVRFabi.js"></script>
+    <script src="js/abis/ChainlinkVRFabi.js"></script>
+    <script src="js/abis/BlackjackContract.js"></script>
 
-                    betDiv.innerHTML += res;
-                })
-        }
-        
-        if (typeof web3 !== undefined) {
-            console.log("Web3 Detected!\n" + window.web3.currentProvider.constructor.name);
-            console.log('lets play blackjack')
-            let BlackJackContract = new web3.eth.Contract([
-                {
-                    "inputs": [
-                        {
-                            "internalType": "uint256",
-                            "name": "b",
-                            "type": "uint256"
-                        }
-                    ],
-                    "name": "setBet",
-                    "outputs": [],
-                    "stateMutability": "payable",
-                    "type": "function"
-                },
-                {
-                    "inputs": [
-                        {
-                            "internalType": "string",
-                            "name": "p",
-                            "type": "string"
-                        }
-                    ],
-                    "name": "setPlayerName",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "inputs": [
-                        {
-                            "internalType": "uint256",
-                            "name": "p",
-                            "type": "uint256"
-                        }
-                    ],
-                    "name": "setPot",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "inputs": [
-                        {
-                            "internalType": "uint256",
-                            "name": "c",
-                            "type": "uint256"
-                        }
-                    ],
-                    "name": "setRank",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "inputs": [
-                        {
-                            "internalType": "string",
-                            "name": "s",
-                            "type": "string"
-                        }
-                    ],
-                    "name": "setSuit",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "inputs": [],
-                    "name": "shuffleDeck",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "inputs": [],
-                    "name": "getBet",
-                    "outputs": [
-                        {
-                            "internalType": "uint256",
-                            "name": "",
-                            "type": "uint256"
-                        }
-                    ],
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "inputs": [],
-                    "name": "getBlackjackPlayer",
-                    "outputs": [
-                        {
-                            "components": [
-                                {
-                                    "internalType": "string",
-                                    "name": "playername",
-                                    "type": "string"
-                                },
-                                {
-                                    "internalType": "uint256",
-                                    "name": "card",
-                                    "type": "uint256"
-                                },
-                                {
-                                    "internalType": "string",
-                                    "name": "suit",
-                                    "type": "string"
-                                },
-                                {
-                                    "internalType": "uint256",
-                                    "name": "bet",
-                                    "type": "uint256"
-                                }
-                            ],
-                            "internalType": "struct Blackjack.BlackJackPlayer",
-                            "name": "",
-                            "type": "tuple"
-                        }
-                    ],
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "inputs": [],
-                    "name": "getDeck",
-                    "outputs": [
-                        {
-                            "internalType": "uint256[]",
-                            "name": "d",
-                            "type": "uint256[]"
-                        }
-                    ],
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "inputs": [],
-                    "name": "getPlayerName",
-                    "outputs": [
-                        {
-                            "internalType": "string",
-                            "name": "",
-                            "type": "string"
-                        }
-                    ],
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "inputs": [],
-                    "name": "getRank",
-                    "outputs": [
-                        {
-                            "inputs": [],
-                            "name": "geta",
-                            "outputs": [
-                                {
-                                    "internalType": "uint256",
-                                    "name": "",
-                                    "type": "uint256"
-                                }
-                            ],
-                            "stateMutability": "view",
-                            "type": "function"
-                        }
-                    ],
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "inputs": [],
-                    "name": "getSuit",
-                    "outputs": [
-                        {
-                            "internalType": "string",
-                            "name": "",
-                            "type": "string"
-                        }
-                    ],
-                    "stateMutability": "view",
-                    "type": "function"
-                }
-            ], '0x02645FFa8aeE06867E0A81e9D80800217e4c299e');
+    <script src="js/index.js"></script>
 
-            (() => {
-                
-                let v = 300;
-                let pot = document.getElementById('pot');
-                let timer = document.getElementById('timer');
-                let dealerScore = document.getElementById('dealerscore');
-                let accountsDiv = document.getElementById('accounts');
-                let nameDiv = document.getElementById('name');
-                //Set pot
-                pot.innerHTML = v;
-                //pot.innerHTML -= 90;
-
-                //initialize and reset timer
-                let timeLeft = 15;
-                let timerId = setInterval(t, 1000)
-                function t() {
-                    i = 0;
-                    if (timeLeft == -1) {
-                        clearTimeout(timerId);
-                    } else {
-                        timer.innerHTML = timeLeft;
-                        timeLeft--;
-                        if (timeLeft == 0) {
-
-                            console.log('times up');
-                            // console.log(lowerhand[i].rank);
-                            // console.log(upperhand[i].rank);
-                            // console.log(dealerhand[i].rank);
-                            // lowerhand.addCard(deck.topCard());
-                            // lowerhand.render();
-                            // upperhand.addCard(deck.topCard());
-                            // upperhand.render();
-                            dealerhand.addCard(deck.topCard());
-                            dealerScore.innerHTML = dealerhand[0].rank + dealerhand[1].rank + dealerhand[2].rank;
-                            dealerhand.render();
-                            alert('You lose');
-                            if (dealerhand.length <= 2) {
-                                timeLeft = 30;
-
-                                i++;
-                            }
-                            // timeLeft = 30;
-                        }
-                    }
-                }
-
-
-
-                return web3.eth.getAccounts()
-                    .then(res => {
-                        res.forEach(account => {
-                            accountsDiv.innerHTML += `<p style="color:blue;">${account} <span style="color:black;">is in the game queue</span></p>`;
-                        });
-                        return BlackJackContract.methods.getPlayerName().call();
-
-                    }).then(res => {
-                        nameDiv.innerHTML += res;
-                        return betUpdate();
-
-                    }).then(res => {
-                        // betDiv.innerHTML += res;
-
-                    }).then(res => {
-
-                        return BlackJackContract.methods.setBet(bet1value).send({ from: "0x4f8e3a724d5CfbBE9e1152dFB5A3920ccA5e89e8" });
-                    })
-            })();
-        } else {
-            App.web3Provider = new web3.providers.HttpProvider('http://127.0.0.1:7545');
-            web3 = new Web3(App.web3Provider);
-        }
-
-        document.querySelector('div#player1 > span.balance');
-        document.querySelector('div#player2 > span.balance');
-
-    </script>
     <script src="js/deckType.js"></script>
     <script src="js/blackjack.cards.js"></script>
     <script src="js/game.js"></script>
+
+    <script>
+        window.onload = function() {
+            return loadCards()
+            .then(res => {
+                console.log('LAODIED ARDA', res);
+                // Give each player 40 chips
+
+                startGame();
+            });
+        }
+    </script>
 </body>
 
 </html>
