@@ -4,17 +4,16 @@ const path = require('path');
 
 const router = require('./config/routes');
 
-// let pathy = path.join(__dirname, '../Client/assets');
 let css = path.join(__dirname, '../Client/css');
 let img = path.join(__dirname, '../Client/img');
 let js = path.join(__dirname, '../Client/js');
-
-// console.log('APTHY', pathy);
+let abis = path.join(__dirname, '../Client/js/abis');
 
 app.use(router);
-// app.use('/', express.static(pathy));
-app.use('/css', express.static(css));
+
+app.use('/js/abis', express.static(abis));
 app.use('/js', express.static(js));
+app.use('/css', express.static(css));
 app.use('/img', express.static(img));
 
 
