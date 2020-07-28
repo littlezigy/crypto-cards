@@ -1,4 +1,4 @@
-
+let startGame = function() {
 //Tell the library which element to use for the table
 cards.init({ table: '#card-table', type: STANDARD });
 
@@ -28,10 +28,11 @@ $('#deal').click(function () {
 	//Deck has a built in method to deal to hands.
 	$('#deal').hide();
 	// deck.deal(1, [upperhand, lowerhand], 50, function() {
-	deck.deal(2, [upperhand, lowerhand, dealerhand], 700, function () {
+	deck.deal(1, [upperhand, lowerhand, dealerhand], 700, function () {
 		//This is a callback function, called when the dealing
 		//is done.
-		//dealerhand.addCard(deck.topCard());
+		// dealerhand.addCard(deck.topCard());
+        deck.deal(1, [upperhand, lowerhand, dealerhand], 700);
 		dealerhand.render();
 	});
 });
@@ -41,6 +42,7 @@ let dealerScore = document.getElementById('dealerscore');
 
 //When you click on the top card of a deck, a card is added
 //to your hand
+    /*
 deck.click(function (card) {
 	if (card === deck.topCard()) {
 		dealerhand.addCard(deck.topCard());
@@ -49,6 +51,7 @@ deck.click(function (card) {
 	dealerScore.innerHTML = dealerhand[0].rank + dealerhand[1].rank + dealerhand[2].rank;
 	console.log(card);
 });
+    */
 
 //hit player1
 $('#hit1').click(function (card) {
@@ -93,3 +96,4 @@ dealerhand.click(function (card) {
 	card.render();
 	console.log(card);
 });
+}
