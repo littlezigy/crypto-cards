@@ -12,57 +12,80 @@
 
 </head>
 
-<body>
+<body style="padding-top: 0px;">
     <h2>Crypto Cards</h2>
 
     <img class="preload" src="img/cards.png" />
 
     <div id="card-table" class="hexagon">
         <button id="deal">DEAL</button>
+        <p style="color:white; margin-left: 16px;">POT: <span id="pot"></span></p>
+        <p style="color:white; margin-left: 16px;">TIME: <span id="timer"></span></p>
+        <h2 id="dealerscore" style="color:white; margin-left: 16px; text-align: left;"></h2>
     </div>
     <div id="players">
         <div id='player1'>
+            <h2 id="score1" style="text-align:left;">Score</h2>
             <button id="hit1">HIT</button>
             <button id="stay1">STAY</button>
             <div>
-                <button id="bet1">BET</button>
-                <input type="text" value="">
+                <button id="bet1" onclick="betUpdate()">BET</button>
+                <input type="text" id="bet1value" value="">
             </div>
-            <p>Player 1</p>
+            <p style="
+            margin-bottom: 0px;
+        ">Player 1</p>
             <span>Name:</span>
             <span id='name' class="glow"></span>
             <span>Bet:</span>
             <span id='bet' class="glow"></span>
-            <p>Hand:</p>
-            <span id="hand" class="glow"></span>
+            <!-- <p>Hand:</p>
+            <span id="hand" class="glow"></span> -->
         </div>
 
         <div id='player2'>
+            <h2 id="score2" style="text-align:left;">Score</h2>
             <button id="hit2">HIT</button>
             <button id="stay2">STAY</button>
             <div>
                 <button id="bet2">BET</button>
-                <input type="text" value="">
+                <input type="text" id="bet2value" value="">
             </div>
-            <p>Player 2</p>
+            <p style="
+            margin-bottom: 0px;
+        ">Player 2</p>
             <span>Name:</span>
             <span class="glow">User2</span>
             <span>Bet:</span>
             <span class="glow">12</span>
-            <p>Hand:</p>
-            <span class="glow"></span>
+            <!-- <p>Hand:</p>
+            <span class="glow"></span> -->
 
         </div>
     </div>
     <div id='accounts'>
-        <p class='text-center'>Chat</p>
+        <p class='text-center'>Game Queue</p>
     </div>
 
     <div></div>
 
     <script>
         var web3 = new Web3("http://localhost:7545");
+        
+                let betDiv = document.getElementById('bet');
+                let betValue1 = document.getElementById('bet1value');
+        let betUpdate = function () {
+console.log(betValue1.value);
+            return BlackJackContract.methods.setBet(betValue1.value).send({from:"0x4f8e3a724d5CfbBE9e1152dFB5A3920ccA5e89e8"})
+                .then(res => {
+                    return BlackJackContract.methods.getBet().call()
+                })
+                .then(res => {
 
+                    betDiv.innerHTML += res;
+                })
+        }
+        
         if (typeof web3 !== undefined) {
             console.log("Web3 Detected!\n" + window.web3.currentProvider.constructor.name);
             console.log('lets play blackjack')
@@ -250,22 +273,70 @@
             ], '0x02645FFa8aeE06867E0A81e9D80800217e4c299e');
 
             (() => {
+                
+                let v = 300;
+                let pot = document.getElementById('pot');
+                let timer = document.getElementById('timer');
+                let dealerScore = document.getElementById('dealerscore');
                 let accountsDiv = document.getElementById('accounts');
                 let nameDiv = document.getElementById('name');
-                let betDiv = document.getElementById('bet');
+                //Set pot
+                pot.innerHTML = v;
+                //pot.innerHTML -= 90;
+
+                //initialize and reset timer
+                let timeLeft = 15;
+                let timerId = setInterval(t, 1000)
+                function t() {
+                    i = 0;
+                    if (timeLeft == -1) {
+                        clearTimeout(timerId);
+                    } else {
+                        timer.innerHTML = timeLeft;
+                        timeLeft--;
+                        if (timeLeft == 0) {
+
+                            console.log('times up');
+                            // console.log(lowerhand[i].rank);
+                            // console.log(upperhand[i].rank);
+                            // console.log(dealerhand[i].rank);
+                            // lowerhand.addCard(deck.topCard());
+                            // lowerhand.render();
+                            // upperhand.addCard(deck.topCard());
+                            // upperhand.render();
+                            dealerhand.addCard(deck.topCard());
+                            dealerScore.innerHTML = dealerhand[0].rank + dealerhand[1].rank + dealerhand[2].rank;
+                            dealerhand.render();
+                            alert('You lose');
+                            if (dealerhand.length <= 2) {
+                                timeLeft = 30;
+
+                                i++;
+                            }
+                            // timeLeft = 30;
+                        }
+                    }
+                }
+
+
+
                 return web3.eth.getAccounts()
                     .then(res => {
                         res.forEach(account => {
-                            accountsDiv.innerHTML += `<p>${account}</p>`;
+                            accountsDiv.innerHTML += `<p style="color:blue;">${account} <span style="color:black;">is in the game queue</span></p>`;
                         });
                         return BlackJackContract.methods.getPlayerName().call();
 
                     }).then(res => {
                         nameDiv.innerHTML += res;
-                        return BlackJackContract.methods.getBet().call();
-                    }).then(res => {
-                        betDiv.innerHTML += res;
+                        return betUpdate();
 
+                    }).then(res => {
+                        // betDiv.innerHTML += res;
+
+                    }).then(res => {
+
+                        return BlackJackContract.methods.setBet(bet1value).send({ from: "0x4f8e3a724d5CfbBE9e1152dFB5A3920ccA5e89e8" });
                     })
             })();
         } else {

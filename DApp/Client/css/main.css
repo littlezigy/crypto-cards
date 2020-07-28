@@ -16,4 +16,27 @@
 
 h2{
   text-align:center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+}
+
+input{
+  
+  width: 92px;
+  height: 24px;
+
+}
+
+button{
+  margin:0;
+}
+
+#score1{
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+#score2{
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
