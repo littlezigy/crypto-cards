@@ -1,0 +1,12 @@
+var popupHtml = `
+<div id = 'winner_popup'>
+
+</div>
+
+<style>
+div#winner_popup {
+    min-height: 200px;
+    min-width: 200px;
+}
+</style>
+`

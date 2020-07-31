@@ -1,7 +1,7 @@
 // var web3 = new Web3("http://localhost:7545");
 var web3 = new Web3(window.ethereum);
 
-let blackjackContract = new web3.eth.Contract(blackjackAbi, '0xBbDd8b49d6137BC812c9Dd0e92073317e89B59E9');
+let blackjackContract = new web3.eth.Contract(blackjackAbi, '0xa4F06ed4B07c5e37bB40173229919152Cf67A6b7');
 let vrfContract = new web3.eth.Contract(chainlinkVRFabi, '0x9424f711C01bD712990EA686dB4F7caA1c14f074');
 let chipContract = new web3.eth.Contract(chipVRFabi, '0x93e35437D822b815E43c32aF08706895efc2EE37');
 
@@ -26,6 +26,66 @@ let betUpdate = function () {
         betDiv.innerHTML = res;
     })
 }
+
+let collectWinnings = function() {
+    console.log('WINNINGS COLLECTECD');
+    let addr = web3.eth.defaultAccount;
+    return chipContract.methods.transferFrom('0x26760Bf0A16E89b0780f4B93517C289326E41279', addr, 2).send()
+    .then(res => {
+    });
+}
+
+let win = function() {
+    let popupHtml = `
+        <div id = 'overlay'>
+            <div id = 'winner_popup'>
+                <h2>You won!</h2>
+                <button id = 'collect_winnings' onclick = 'collectWinnings()'>Collect Your Winnings</button>
+
+            </div>
+        </div>
+
+        <style>
+    /*
+        div#overlay {
+            background: #8080807a;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+    */
+        div#winner_popup > button {
+            margin: auto;
+            display: block;
+            padding: 0.8em;
+
+        }
+        div#winner_popup {
+            padding: 2em;
+            min-height: 200px;
+            min-width: 400px;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+
+            background: white;
+            box-shadow: 3px 4px 20px 15px #00000099;
+            width: fit-content;
+        }
+        </style>
+    `
+
+    let popupElement = document.createElement('div');
+    popupElement.innerHTML = popupHtml;
+
+    console.log('POPUP HTML', popupElement);
+    document.body.append(popupElement);
+}
+
+win();
         
 
 if (typeof web3 !== undefined) {
