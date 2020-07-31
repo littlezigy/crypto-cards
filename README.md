@@ -20,5 +20,10 @@ Crypto Cards is an innovative take on the game of Blackjack powered by Chainlink
 
 ## Video Demo
 
+## Contribution
+To contribute, fork this repo and make a pull request.
+
+The Blackjack contract and Chips.sol contract use Chainlink contracts. If you update a contract and want to update it to ropsten, run `npm run ropsten:migrate:reset`.
+
 
 [![Build Status](https://travis-ci.org/coderrick/drill.svg?branch=master)](https://travis-ci.org/coderrick/drill)
