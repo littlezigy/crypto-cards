@@ -1,7 +1,7 @@
 // var web3 = new Web3("http://localhost:7545");
 var web3 = new Web3(window.ethereum);
 
-let blackjackContract = new web3.eth.Contract(blackjackAbi, '0x4b5589797FaE4BC7aceC6d93Dab165E3461Ee26a');
+let blackjackContract = new web3.eth.Contract(blackjackAbi, '0xBbDd8b49d6137BC812c9Dd0e92073317e89B59E9');
 let vrfContract = new web3.eth.Contract(chainlinkVRFabi, '0x9424f711C01bD712990EA686dB4F7caA1c14f074');
 let chipContract = new web3.eth.Contract(chipVRFabi, '0x93e35437D822b815E43c32aF08706895efc2EE37');
 
