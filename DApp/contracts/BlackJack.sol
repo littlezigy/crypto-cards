@@ -1,6 +1,8 @@
 pragma solidity >=0.4.22 <0.7.0;
 pragma experimental ABIEncoderV2;
 import './Chainlink/Randomness.sol';
+import './Chainlink/Randomness.sol.old';
+import './Chips.sol';
 
 /**
  * @title Blackjack
@@ -19,16 +21,21 @@ contract Blackjack {
     address player1;
     address player2;
     uint256[] public deck = new uint256[](52);
-    uint256[] public playerMoves
+    uint256[] public playerMoves;
     uint256 turns = 0;
     uint256 pot; //the pot for all players
     // uint256 currentCardIndex = 0;
     //player/game metadata
 
-    RandomNumberConsumer vrf;
+    Chip chip;
 
-    constructor(address randomNumberConsumerAddress) public{
-        vrf =  RandomNumberConsumer(randomNumberConsumerAddress);
+//     VRFTestnetD20 d20;
+
+    FillDeck vrf;
+
+    constructor(address fillDeckAddr) public{
+        vrf =  FillDeck(fillDeckAddr);
+  //       d20 = VRFTestnetD20(d20addr);
     }
 
     struct BlackJackPlayer {
@@ -55,6 +62,7 @@ contract Blackjack {
 
     function setBet(uint256 b) public payable {
         blackjack.bet = b;
+        pot += 2 * b;
     }
 
     function setPot(uint256 p) public {
@@ -135,33 +143,44 @@ contract Blackjack {
         // Fill deck with numbers 1 through 52
         for (uint256 i = 0; i < 52; i++) {
             deck[i] = i + 1;
+            vrf.getRandomNumber(566);
         }
 
-        vrf.resetRandomIndex();
-        swapCardsInDeck();
+        // vrf.resetRandomIndex();
+        // swapCardsInDeck();
 
         // Suits: clubs diamond heart spade
         // Set randIndex = -1;
-
     }
-    function hitOrStay(bytes32 requestId, uint256 randomness) external override onlyVRFCoordinator {
+
+    // function hitOrStay(bytes32 requestId, uint256 randomness) external override onlyVRFCoordinator {
+    function hitOrStay() external {
         //Will choose either 0 or 1 (Hit or Stay)
+        /*
         uint256 playerMove = randomness.mod(1);
         playerMoves.push(playerMove);
+        */
+
+         vrf.getRandomNumber(8983);
+
+       while(vrf.randIndex() != true) {
+          uint256 playerMove = vrf.randomResult() % 2;
+          playerMoves.push(playerMove);
+          vrf.resetRandomIndex();
+       }
+
     }
 
     function getHitOrStay() public view returns (uint256 playerMove){
         return playerMoves[playerMoves.length - 1];
     }
- 
-    function latestRoll() public view returns (uint256 d20result) {
-        return d20Results[d20Results.length - 1];
-    }
-
-    function calcPoints() public {
-    }
 
     function getDeck() public view returns (uint256[] memory d) {
-        return deck;
+        return vrf.getDeck();
+        // return deck;
+    }
+
+    function collectWinnings(address addr) public {
+        chip.transfer(addr, pot);
     }
 }

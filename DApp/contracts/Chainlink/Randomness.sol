@@ -43,25 +43,26 @@ contract RandomNumberConsumer {
         // bytes32 _requestId =  requestRandomness(keyHash, fee, userProvidedSeed);
         // emit GotRandomNumber(_requestId);
 
-        randomResult = 51;
+        randomResult = 31;
         // uint8(uint256(keccak256(block.timestamp, block.difficulty))%251);
         // randomResult = uint256(keccak256(abi.encode(block.timestamp, block.difficulty)))%251;
         randIndex = true;
         randCount++;
         // return _requestId;
-        fulfillRandomness(0x626c616869646b00000000000000000000000000000000000000000000000000);
+//        fulfillRandomness(0x626c616869646b00000000000000000000000000000000000000000000000000);
     }
 
 }
 */
 
 // For live testing
-contract RandomNumberConsumer is VRFConsumerBase {
+contract FillDeck is VRFConsumerBase {
     
     bytes32 internal keyHash;
     uint256 internal fee;
     
     uint256 public randomResult;
+    uint256[52] public deck;
 
     bool public randIndex;
     uint256 public randCount = 0;
@@ -87,7 +88,6 @@ contract RandomNumberConsumer is VRFConsumerBase {
      //* Requests randomness from a user-provided seed
     function getRandomNumber(uint256 userProvidedSeed) public returns (bytes32 requestId) {
         require(LINK.balanceOf(address(this)) > fee, "Not enough LINK - fill contract with faucet");
-        return  requestRandomness(keyHash, fee, userProvidedSeed);
         // bytes32 _requestId =  requestRandomness(keyHash, fee, userProvidedSeed);
         // emit GotRandomNumber(_requestId);
         // return _requestId;
@@ -97,9 +97,14 @@ contract RandomNumberConsumer is VRFConsumerBase {
     function fulfillRandomness(bytes32 requestId, uint256 randomness) external override {
         require(msg.sender == vrfCoordinator, "Fulfilment only permitted by Coordinator");
         randomResult = randomness.mod(52).add(1);
+        deck.push(randomResult);
         randIndex = true;
         randCount++;
         // randomResult = randomness.mod(52);
         // randIndex = randomness.mod(52);
+    }
+
+    function getDeck() public view returns (uint256[] memory d) {
+        return deck;
     }
 }
