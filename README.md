@@ -7,6 +7,10 @@ Crypto Cards is an innovative take on the game of Blackjack powered by Chainlink
 <pre>
 git clone [this repo]
 
+cd /crypt-cards/DApp
+
+truffle migrate
+
 Open index.html in Chrome.
 
 Open Metamask *Switch Network to Ropsten*
