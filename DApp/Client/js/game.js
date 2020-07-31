@@ -34,6 +34,7 @@ $('#deal').click(function () {
 		// dealerhand.addCard(deck.topCard());
         deck.deal(1, [upperhand, lowerhand, dealerhand], 700);
 		dealerhand.render();
+        calculateScores();
 	});
 });
 let playerScore1 = document.getElementById('score1');
@@ -58,16 +59,53 @@ $('#hit1').click(function (card) {
 	lowerhand.addCard(deck.topCard());
 	lowerhand.render();
 	console.log(card);
-	playerScore1.innerHTML = lowerhand[0].rank + lowerhand[1].rank + lowerhand[2].rank;
-	console.log(lowerhand[2].rank);
-	console.log(card.rank);
+
+    calculateScores();
+	// playerScore1.innerHTML = lowerhand[0].rank + lowerhand[1].rank + lowerhand[2].rank;
 });
+
+let calculateScores = function() {
+    // Add up cards
+    let player1Score = 0;
+    let player2Score = 0;
+    let dealerScore = 0;
+
+    for(let _card in lowerhand) {
+        if( !isNaN(parseInt(_card)) )
+            player1Score += lowerhand[_card].rank;
+    }
+    playerScore1.innerHTML = player1Score;
+
+    for(let _card in dealerScore) {
+        if( !isNaN(parseInt(_card)) )
+            player2Score += upperhand[_card].rank;
+    }
+
+    playerScore2.innerHTML = player2Score;
+
+    //if any player score > 21, other player wins
+    if(player1Score > 21 || dealerScore === 21) {
+        win(false);
+        console.log('WIN OR LOSE', false);
+    }
+
+    //if any player score = 21, player wins
+    if(player1Score === 21 || dealerScore > 21) {
+        win();
+        console.log('WIN OR LOSE', true);
+    }
+
+    console.log('WIN OR LOSE', false);
+
+}
 
 //hit player2
 $('#hit2').click(function (card) {
 	upperhand.addCard(deck.topCard());
 	upperhand.render();
-	playerScore2.innerHTML = upperhand[0].rank + upperhand[1].rank + upperhand[2].rank;
+
+    calculateScores();
+	// playerScore2.innerHTML = upperhand[0].rank + upperhand[1].rank + upperhand[2].rank;
 	console.log(card);
 	console.log(upperhand[0].rank + upperhand[1].rank);
 });

@@ -36,41 +36,39 @@ let collectWinnings = function () {
         });
 }
 
-let win = function () {
+let win = function (_win = true) {
+    let title;
+    let extraInfo = '';
+
+    if(win === true) {
+        title = 'You won!';
+        let extraInfo = ` <button id = 'collect_winnings' onclick = 'collectWinnings()'>Collect Your Winnings</button>`
+    }
+    else title = 'You lost!';
+
     let popupHtml = `
         <div id = 'overlay' style="position: absolute; top: 30%; right: 20%;">
             <div id = 'winner_popup'>
-                <h2 style="margin-top: 50px;">You won!</h2>
-                <button id = 'collect_winnings' onclick = 'collectWinnings()'>Collect Your Winnings</button>
+                <h2 style="margin-top: 50px;">${ title }</h2>
+                ${ extraInfo }
 
             </div>
         </div>
 
         <style>
-    /*
-        div#overlay {
-            background: #8080807a;
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
-
-    */
         div#winner_popup > button {
             margin: auto;
             display: block;
             padding: 0.8em;
-
         }
+
         div#winner_popup {
             position: absolute;
-    z-index: 999;
+            z-index: 999;
             margin: auto 0
             position: absolute;
-    top: 50%;
-    right: 25%;
+            top: 50%;
+            right: 25%;
             padding: 2em;
             min-height: 200px;
             min-width: 400px;
@@ -85,14 +83,14 @@ let win = function () {
     popupElement.innerHTML = popupHtml;
 
     console.log('POPUP HTML', popupElement);
-    window.addEventListener("keypress", myFunction);
+    // window.addEventListener("keypress", myFunction);
 
-    function myFunction() {
+    // function myFunction() {
         document.body.append(popupElement);
-    }
+    // }
 }
 
-win();
+// win();
 
 if (typeof web3 !== undefined) {
     console.log("Web3 Detected!\n" + window.web3.currentProvider.constructor.name);
