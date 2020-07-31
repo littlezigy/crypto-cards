@@ -23,6 +23,7 @@ Open Metamask *Switch Network to Ropsten*
 ![Alt Text](https://media.giphy.com/media/Qx5dDgvgAnH4TjW6K7/giphy.gif)
 
 ## NuCypher
+<img src="nucypher-clip.png" height="250" width="250">
 
 ## Video Demo
 
