@@ -7,16 +7,18 @@ Crypto Cards is an innovative take on the game of Blackjack powered by Chainlink
 `git clone [this repo]`
 
 ## Gameplay
-![Alt Text](https://media.giphy.com/media/MAp4x5x5Rub2EQSTXr/giphy.gif)
+
 
 ## VRF
 
+
 ## ERC20/PriceReference
+![Alt Text](https://media.giphy.com/media/MAp4x5x5Rub2EQSTXr/giphy.gif)
+![Alt Text](https://media.giphy.com/media/Qx5dDgvgAnH4TjW6K7/giphy.gif)
 
 ## NuCypher
 
 ## Video Demo
 
-Take a look at our Beta web app [HERE!](http://www..com/)
 
 [![Build Status](https://travis-ci.org/coderrick/drill.svg?branch=master)](https://travis-ci.org/coderrick/drill)
