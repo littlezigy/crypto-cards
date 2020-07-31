@@ -7,7 +7,7 @@ Crypto Cards is an innovative take on the game of Blackjack powered by Chainlink
 `git clone [this repo]`
 
 ## Gameplay
-
+![Alt Text](https://media.giphy.com/media/lrzMxw9R4uCkJzfgOi/giphy.gif)
 
 ## VRF
 
