@@ -15,33 +15,32 @@ let userAddr;
 let betUpdate = function () {
     console.log('Updating bet', betValue1.value);
     let from = web3.eth.defaultAccount;
-
-    if(!from || from == undefined)
+    if (!from || from == undefined)
         console.error("Connect wallet");
 
     return blackjackContract.methods.setBet(betValue1.value).send({ from })
-    .then(res => {
-        return blackjackContract.methods.getBet().call()
-    })
-    .then(res => {
-        console.log('BET UPDATED', res);
-        betDiv.innerHTML = res;
-    })
+        .then(res => {
+            return blackjackContract.methods.getBet().call()
+        })
+        .then(res => {
+            console.log('BET UPDATED', res);
+            betDiv.innerHTML = res;
+        })
 }
 
-let collectWinnings = function() {
+let collectWinnings = function () {
     console.log('WINNINGS COLLECTECD');
     let addr = web3.eth.defaultAccount;
     return chipContract.methods.transferFrom('0x26760Bf0A16E89b0780f4B93517C289326E41279', addr, 2).send()
-    .then(res => {
-    });
+        .then(res => {
+        });
 }
 
-let win = function() {
+let win = function () {
     let popupHtml = `
-        <div id = 'overlay'>
+        <div id = 'overlay' style="position: absolute; top: 30%; right: 20%;">
             <div id = 'winner_popup'>
-                <h2>You won!</h2>
+                <h2 style="margin-top: 50px;">You won!</h2>
                 <button id = 'collect_winnings' onclick = 'collectWinnings()'>Collect Your Winnings</button>
 
             </div>
@@ -66,13 +65,15 @@ let win = function() {
 
         }
         div#winner_popup {
+            position: absolute;
+    z-index: 999;
+            margin: auto 0
+            position: absolute;
+    top: 50%;
+    right: 25%;
             padding: 2em;
             min-height: 200px;
             min-width: 400px;
-            position: absolute;
-            top: 30%;
-            left: 50%;
-
             background: white;
             box-shadow: 3px 4px 20px 15px #00000099;
             width: fit-content;
@@ -84,11 +85,14 @@ let win = function() {
     popupElement.innerHTML = popupHtml;
 
     console.log('POPUP HTML', popupElement);
-    document.body.append(popupElement);
+    window.addEventListener("keypress", myFunction);
+
+    function myFunction() {
+        document.body.append(popupElement);
+    }
 }
 
 win();
-        
 
 if (typeof web3 !== undefined) {
     console.log("Web3 Detected!\n" + window.web3.currentProvider.constructor.name);
@@ -140,33 +144,30 @@ if (typeof web3 !== undefined) {
             }
         }
 
-
         return web3.eth.getAccounts()
-        .then(res => {
-            res.forEach(account => {
-                // accountsDiv.innerHTML += `<p>${account}</p>`;
-                accountsDiv.innerHTML += `<p style="color:blue;">${account} <span style="color:black;">is in the game queue</span></p>`;
-                return blackjackContract.methods.getPlayerName().call();
-            });
-            let acc1 = res[0].substring(0,10);
-            web3.eth.defaultAccount = res[0];
-            // nameDiv.innerHTML += acc1 + '...';
+            .then(res => {
+                res.forEach(account => {
+                    // accountsDiv.innerHTML += `<p>${account}</p>`;
+                    accountsDiv.innerHTML += `<p style="color:blue;">${account} <span style="color:black;">is in the game queue</span></p>`;
+                    return blackjackContract.methods.getPlayerName().call();
+                });
+                let acc1 = res[0].substring(0, 10);
+                web3.eth.defaultAccount = res[0];
+                // nameDiv.innerHTML += acc1 + '...';
 
-            return blackjackContract.methods.getPlayerName().call();
-         }).then(res => {
-            nameDiv.innerHTML += res;
-            return blackjackContract.methods.getBet().call();
-        }).then(res => {
-            // console.log('BET', res);
-            betDiv.innerHTML += res;
-            // return BlackJackContract.methods.setBet(bet1value).send({ from: "0x4f8e3a724d5CfbBE9e1152dFB5A3920ccA5e89e8" });
-        })
+                return blackjackContract.methods.getPlayerName().call();
+            }).then(res => {
+                nameDiv.innerHTML += res;
+                return blackjackContract.methods.getBet().call();
+            }).then(res => {
+                // console.log('BET', res);
+                betDiv.innerHTML += res;
+                // return BlackJackContract.methods.setBet(bet1value).send({ from: "0x4f8e3a724d5CfbBE9e1152dFB5A3920ccA5e89e8" });
+            })
     })();
 } else {
     App.web3Provider = new web3.providers.HttpProvider('http://127.0.0.1:7545');
     web3 = new Web3(App.web3Provider);
 }
-
 //    document.querySelector('div#player1 > span.balance');
 //    document.querySelector('div#player2 > span.balance');
-
