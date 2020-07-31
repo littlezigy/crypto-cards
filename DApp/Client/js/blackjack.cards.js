@@ -96,30 +96,39 @@ let loadCards = function() {
             console.log('DECK LENGTH', deck.length);
             console.log('DECKK start', deck);
             // await vrfContract.methods.getRandomNumber(89432).send({ from: addr });
-            var i = deck.length;
-            if (i == 0) return;
-            while (--i) {
-              // Replace next line with randomizer function
-              var j = Math.floor(Math.random() * (i + 1));
-              // await vrfContract.methods.getRandomNumber(89432).send({ from: addr });
-              // let j = await vrfContract.methods.randomResult().call();
+            return await blackjackContract.methods.shuffleDeck().send({from: addr })
+            .then(res => {
+                console.log('ashuffled eck', res);
+                return await blackjackContract.methods.getDeck().call()
+            }).then(res => {
+                var i = deck.length;
+                if (i == 0) return;
+                while (i < 52) {
+                    deck[i] = res[i];
+                  // Replace next line with randomizer function
+                  // var j = Math.floor(Math.random() * (i + 1));
+                  // await vrfContract.methods.getRandomNumber(89432).send({ from: addr });
+                  // let j = await vrfContract.methods.randomResult().call();
 
-              var tempi = deck[i];
-              var tempj = deck[j];
-              deck[i] = tempj;
-              deck[j] = tempi;
-              console.log('JJJ', j);
-            }
-            console.log('DECKK end', deck);
+                  // var tempi = deck[i];
+                  // var tempj = deck[j];
+                  /*
+                  deck[i] = tempj;
+                  deck[j] = tempi;
+                  console.log('JJJ', j);
+                  */
+                }
+                console.log('DECKK end', deck);
 
-              //return blackjackContract.methods.shuffleDeck().send({ from: addr })
-              // return blackjackContract.methods.shuffleDeck().send()
-              /*
-              .then(res => {
-                  console.log('RESSS', res);
-                  console.log('DECKK end', deck);
-              });
-              */
+                  //return blackjackContract.methods.shuffleDeck().send({ from: addr })
+                  // return blackjackContract.methods.shuffleDeck().send()
+                  /*
+                  .then(res => {
+                      console.log('RESSS', res);
+                      console.log('DECKK end', deck);
+                  });
+                  */
+            });
           }
 
           function Card(suit, rank, table) {
