@@ -26,6 +26,6 @@ Open Metamask *Switch Network to Ropsten*
 <img src="nucypher-clip.png" height="242" width="482">
 
 ## Video Demo
-
+[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://youtu.be/vt5fpE0bzSY)
 
 [![Build Status](https://travis-ci.org/coderrick/drill.svg?branch=master)](https://travis-ci.org/coderrick/drill)
