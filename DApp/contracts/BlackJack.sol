@@ -82,6 +82,10 @@ contract Blackjack {
         return blackjack;
     }
 
+    function getPot() public view returns (uint256 p){
+        return pot;
+    }
+
     // Events
 
     event FillingDeck(
