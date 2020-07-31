@@ -63,6 +63,8 @@ let win = function () {
 
         }
         div#winner_popup {
+            position: absolute;
+    z-index: 999;
             margin: auto 0
             position: absolute;
     top: 50%;
@@ -81,7 +83,11 @@ let win = function () {
     popupElement.innerHTML = popupHtml;
 
     console.log('POPUP HTML', popupElement);
-    document.body.append(popupElement);
+    window.addEventListener("keypress", myFunction);
+
+    function myFunction() {
+        document.body.append(popupElement);
+    }
 }
 
 win();
