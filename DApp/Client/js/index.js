@@ -68,7 +68,6 @@ if (typeof web3 !== undefined) {
                     dealerhand.addCard(deck.topCard());
                     dealerScore.innerHTML = dealerhand[0].rank + dealerhand[1].rank + dealerhand[2].rank;
                     dealerhand.render();
-                    alert('You lose');
                     if (dealerhand.length <= 2) {
                         timeLeft = 30;
 
