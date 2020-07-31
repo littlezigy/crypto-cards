@@ -1,8 +1,9 @@
-// var web3 = new Web3("http://localhost:7545");
 var web3 = new Web3(window.ethereum);
 
-let blackjackContract = new web3.eth.Contract(blackjackAbi, '0xa4F06ed4B07c5e37bB40173229919152Cf67A6b7');
+// let blackjackContract = new web3.eth.Contract(blackjackAbi, '0x0373438091A7edE0915cE12721081D0e79429208');
+let blackjackContract = new web3.eth.Contract(blackjackAbi, '0x7DA3024578758acCc0Ce3651Fb17BA2716dc54db');
 let vrfContract = new web3.eth.Contract(chainlinkVRFabi, '0x9424f711C01bD712990EA686dB4F7caA1c14f074');
+let cardDeckContract = new web3.eth.Contract(cardDeckabi, '0x9364858b7Aea27a3C16412a3c500faB554504c99');
 let chipContract = new web3.eth.Contract(chipVRFabi, '0x93e35437D822b815E43c32aF08706895efc2EE37');
 
 let account;
@@ -14,8 +15,10 @@ let userAddr;
 let betUpdate = function () {
     console.log('Updating bet', betValue1.value);
     let from = web3.eth.defaultAccount;
+
     if(!from || from == undefined)
         console.error("Connect wallet");
+
     return blackjackContract.methods.setBet(betValue1.value).send({ from })
     .then(res => {
         return blackjackContract.methods.getBet().call()
