@@ -32,8 +32,13 @@ let collectWinnings = function () {
     console.log('WINNINGS COLLECTECD');
     let addr = web3.eth.defaultAccount;
     return chipContract.methods.transferFrom('0x26760Bf0A16E89b0780f4B93517C289326E41279', addr, 2).send()
-        .then(res => {
-        });
+    .then(res => {
+        e.parentNode.style.display = 'none';
+    });
+}
+
+let closeDialog = function(e) {
+    e.parentNode.style.display = 'none';
 }
 
 let win = function (_win = true) {
@@ -42,17 +47,18 @@ let win = function (_win = true) {
 
     if(win === true) {
         title = 'You won!';
-        let extraInfo = ` <button id = 'collect_winnings' onclick = 'collectWinnings()'>Collect Your Winnings</button>`
+        extraInfo = ` <button id = 'collect_winnings' onclick = 'collectWinnings(e)'>Collect Your Winnings</button>`
     }
-    else title = 'You lost!';
+    else {
+        title = 'You lost!';
+        extraInfo = ` <button id = 'close' onclick = 'closeDialog(this)'>Close</button>`
+    }
 
     let popupHtml = `
-        <div id = 'overlay' style="position: absolute; top: 30%; right: 20%;">
-            <div id = 'winner_popup'>
-                <h2 style="margin-top: 50px;">${ title }</h2>
-                ${ extraInfo }
+        <div id = 'winner_popup'>
+            <h2 style="margin-top: 50px;">${ title }</h2>
+            ${ extraInfo }
 
-            </div>
         </div>
 
         <style>
@@ -81,13 +87,11 @@ let win = function (_win = true) {
 
     let popupElement = document.createElement('div');
     popupElement.innerHTML = popupHtml;
+    popupElement.classList.add('popup');
 
     console.log('POPUP HTML', popupElement);
-    // window.addEventListener("keypress", myFunction);
 
-    // function myFunction() {
-        document.body.append(popupElement);
-    // }
+    document.body.append(popupElement);
 }
 
 // win();
