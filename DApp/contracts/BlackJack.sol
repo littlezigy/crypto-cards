@@ -19,6 +19,7 @@ contract Blackjack {
     address player1;
     address player2;
     uint256[] public deck = new uint256[](52);
+    uint256[] public playerMoves
     uint256 turns = 0;
     uint256 pot; //the pot for all players
     // uint256 currentCardIndex = 0;
@@ -138,6 +139,19 @@ contract Blackjack {
         // Suits: clubs diamond heart spade
         // Set randIndex = -1;
 
+    }
+    function hitOrStay(bytes32 requestId, uint256 randomness) external override onlyVRFCoordinator {
+        //Will choose either 0 or 1 (Hit or Stay)
+        uint256 playerMove = randomness.mod(1);
+        playerMoves.push(playerMove);
+    }
+
+    function getHitOrStay() public view returns (uint256 playerMove){
+        return playerMoves[playerMoves.length - 1];
+    }
+ 
+    function latestRoll() public view returns (uint256 d20result) {
+        return d20Results[d20Results.length - 1];
     }
 
     function calcPoints() public {
