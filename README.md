@@ -20,7 +20,7 @@ Open Metamask *Switch Network to Ropsten*
 ![Alt Text](https://media.giphy.com/media/lrzMxw9R4uCkJzfgOi/giphy.gif)
 
 ## VRF
-
+<img src="vrf-clip.png"/>
 
 ## ERC20/PriceReference
 ![Alt Text](https://media.giphy.com/media/MAp4x5x5Rub2EQSTXr/giphy.gif)
