@@ -97,10 +97,12 @@ contract Blackjack {
 
     function swapCardsInDeck() internal {
         //uint256 i = 52;
-        uint256 i;
         vrf.getRandomNumber(566);
 
+        // uint256 i = vrf.randCount();
+
         while (vrf.randCount() < 52) {
+            uint256 i = vrf.randCount();
             uint256 j = vrf.randomResult();
 
             if(vrf.randIndex() == true) {
