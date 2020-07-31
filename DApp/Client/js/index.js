@@ -16,7 +16,6 @@ let betUpdate = function () {
     let from = web3.eth.defaultAccount;
     if(!from || from == undefined)
         console.error("Connect wallet");
-//    return blackjackContract.methods.setBet(betValue1.value).send({from: account})
     return blackjackContract.methods.setBet(betValue1.value).send({ from })
     .then(res => {
         return blackjackContract.methods.getBet().call()
