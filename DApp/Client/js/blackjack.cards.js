@@ -96,10 +96,10 @@ let loadCards = function() {
             console.log('DECK LENGTH', deck.length);
             console.log('DECKK start', deck);
             // await vrfContract.methods.getRandomNumber(89432).send({ from: addr });
-            return await blackjackContract.methods.shuffleDeck().send({from: addr })
+            return blackjackContract.methods.shuffleDeck().send({from: addr })
             .then(res => {
                 console.log('ashuffled eck', res);
-                return await blackjackContract.methods.getDeck().call()
+                return blackjackContract.methods.getDeck().call()
             }).then(res => {
                 var i = deck.length;
                 if (i == 0) return;
