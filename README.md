@@ -30,7 +30,7 @@ Open Metamask *Switch Network to Ropsten*
 <img src="nucypher-clip.png" height="242" width="482">
 
 ## Video Demo
-[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://youtu.be/vt5fpE0bzSY)
+[![Watch the video](https://imgur.com/hfwarJ3.gif)](https://youtu.be/3qQtOfUFi2A)
 
 ## Contribution
 To contribute, fork this repo and make a pull request.
