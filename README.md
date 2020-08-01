@@ -17,10 +17,13 @@ Open Metamask *Switch Network to Ropsten*
 </pre>
 
 ## Gameplay
-[![Watch the video](https://imgur.com/hfwarJ3.gif)](https://youtu.be/3qQtOfUFi2A)
+### Player Loses
+[![Watch the video](https://i.imgur.com/YvIUtvF.mp4)](https://i.imgur.com/YvIUtvF.mp4)
+### Player Wins
+[![Watch the video](https://i.imgur.com/OVAmyCe.mp4)](https://i.imgur.com/OVAmyCe.mp4)
 
 ## VRF
-<img src="vrf-clip.png"/>
+
 
 ## ERC20/PriceReference
 ![Alt Text](https://media.giphy.com/media/MAp4x5x5Rub2EQSTXr/giphy.gif)
