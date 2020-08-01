@@ -20,7 +20,7 @@ Open Metamask *Switch Network to Ropsten*
 ![Alt Text](https://media.giphy.com/media/lrzMxw9R4uCkJzfgOi/giphy.gif)
 
 ## VRF
-
+<img src="vrf-clip.png"/>
 
 ## ERC20/PriceReference
 ![Alt Text](https://media.giphy.com/media/MAp4x5x5Rub2EQSTXr/giphy.gif)
@@ -37,4 +37,3 @@ To contribute, fork this repo and make a pull request.
 
 The Blackjack contract and Chips.sol contract use Chainlink contracts. If you update a contract and want to update it to ropsten, run `npm run ropsten:migrate:reset`.
 
-[![Build Status](https://travis-ci.org/coderrick/drill.svg?branch=master)](https://travis-ci.org/coderrick/drill)
