@@ -15,8 +15,7 @@ module.exports = {
             },
             network_id: 3,
             gas: 8000000,
-            gasPrice: 100000000000,
-            networkCheckTimeout: 10000
+            gasPrice: 100000000000
         }
     },
     compilers: {
