@@ -94,63 +94,12 @@ contract Blackjack {
         return pot;
     }
 
-    // Events
-
-    event FillingDeck(
-        uint256 i
-    );
-
-    event RandomNum(
-        uint256 x
-    );
-
-    event DeckReady(
-        bool ready
-    );
-
-    function swapCardsInDeck() internal {
-        //uint256 i = 52;
-        vrf.getRandomNumber(566);
-
-        // uint256 i = vrf.randCount();
-
-        while (vrf.randCount() < 52) {
-            uint256 i = vrf.randCount();
-            uint256 j = vrf.randomResult();
-
-            if(vrf.randIndex() == true) {
-                // currentCardIndex = i;
-
-                uint256 tempi = deck[i];
-
-                deck[i] = deck[j];
-                deck[j] = tempi;
-
-                vrf.resetRandomIndex();
-
-                vrf.getRandomNumber(566);
-            }
-
-            if(vrf.randCount() == 51) {
-                // Last swap. Emit event
-                emit DeckReady(true);
-            }
-        }
-
-    }
-
+    // Other functions
     function shuffleDeck() public {
-        // Fill deck with numbers 1 through 52
+        // Call vrf function 52 times
         for (uint256 i = 0; i < 52; i++) {
-            deck[i] = i + 1;
             vrf.getRandomNumber(566);
         }
-
-        // vrf.resetRandomIndex();
-        // swapCardsInDeck();
-
-        // Suits: clubs diamond heart spade
-        // Set randIndex = -1;
     }
 
     // function hitOrStay(bytes32 requestId, uint256 randomness) external override onlyVRFCoordinator {
@@ -161,14 +110,13 @@ contract Blackjack {
         playerMoves.push(playerMove);
         */
 
-         vrf.getRandomNumber(8983);
+        vrf.getRandomNumber(8983);
 
-       while(vrf.randIndex() != true) {
-          uint256 playerMove = vrf.randomResult() % 2;
-          playerMoves.push(playerMove);
-          vrf.resetRandomIndex();
-       }
-
+        while(vrf.randIndex() != true) {
+            uint256 playerMove = vrf.randomResult() % 2;
+            playerMoves.push(playerMove);
+            vrf.resetRandomIndex();
+        }
     }
 
     function getHitOrStay() public view returns (uint256 playerMove){
