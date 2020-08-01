@@ -18,9 +18,9 @@ Open Metamask *Switch Network to Ropsten*
 
 ## Gameplay
 ### Player Loses
-[![Watch the video](https://imgur.com/YvIUtvF.mp4)](https://imgur.com/YvIUtvF.mp4)
+![Watch the video](https://media.giphy.com/media/PjfdYR1GF5OG0eTiw7/giphy.gif)]
 ### Player Wins
-[![Watch the video](https://imgur.com/OVAmyCe.mp4)](https://imgur.com/OVAmyCe.mp4)
+![Watch the video](https://media.giphy.com/media/PjfdYR1GF5OG0eTiw7/giphy.gif)]
 
 ## VRF
 
