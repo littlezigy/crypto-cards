@@ -1,9 +1,22 @@
 let cardDeckabi = 
-[
+  [
     {
       "inputs": [],
       "stateMutability": "nonpayable",
       "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "ready",
+          "type": "bool"
+        }
+      ],
+      "name": "DeckReady",
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -35,8 +48,7 @@ let cardDeckabi =
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -55,8 +67,7 @@ let cardDeckabi =
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -69,8 +80,7 @@ let cardDeckabi =
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -83,8 +93,7 @@ let cardDeckabi =
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -97,8 +106,7 @@ let cardDeckabi =
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -132,6 +140,13 @@ let cardDeckabi =
     {
       "inputs": [],
       "name": "resetRandomIndex",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "resetDeck",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -184,7 +199,6 @@ let cardDeckabi =
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     }
-]
+  ]
