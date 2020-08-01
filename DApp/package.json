@@ -26,8 +26,9 @@
   },
   "homepage": "https://github.com/littlezigy/crypto-cards#readme",
   "dependencies": {
-    "@chainlink/contracts": "0.0.8",
+    "@chainlink/contracts": "0.0.5",
     "express": "^4.17.1",
+    "truffle-hdwallet-provider": "^1.0.17",
     "ws": "^7.3.1"
   },
   "devDependencies": {
